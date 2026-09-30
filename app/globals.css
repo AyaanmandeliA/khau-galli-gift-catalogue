@@ -1,0 +1,256 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../vendor/shadcn-tailwind-4.13.0.css";
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
+
+:root {
+  --background: #fffaf0;
+  --foreground: #3b171b;
+  --card: #fffdf7;
+  --card-foreground: #3b171b;
+  --popover: #fffdf7;
+  --popover-foreground: #3b171b;
+  --primary: #681c25;
+  --primary-foreground: #fffaf0;
+  --secondary: #f7e7bf;
+  --secondary-foreground: #681c25;
+  --muted: #f5ead4;
+  --muted-foreground: #7c625d;
+  --accent: #f7e7bf;
+  --accent-foreground: #681c25;
+  --destructive: #b42318;
+  --border: #e7d3ad;
+  --input: #d9c6a5;
+  --ring: #b56b16;
+  --chart-1: #f54900;
+  --chart-2: #009689;
+  --chart-3: #104e64;
+  --chart-4: #ffb900;
+  --chart-5: #fe9a00;
+  --radius: 1rem;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #171717;
+  --sidebar-primary: #171717;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #a1a1a1;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fffaf0;
+    --foreground: #3b171b;
+    --card: #fffdf7;
+    --card-foreground: #3b171b;
+    --popover: #fffdf7;
+    --popover-foreground: #3b171b;
+    --primary: #681c25;
+    --primary-foreground: #fffaf0;
+    --secondary: #f7e7bf;
+    --secondary-foreground: #681c25;
+    --muted: #f5ead4;
+    --muted-foreground: #7c625d;
+    --accent: #f7e7bf;
+    --accent-foreground: #681c25;
+    --destructive: #b42318;
+    --border: #e7d3ad;
+    --input: #d9c6a5;
+    --ring: #b56b16;
+    --chart-1: #8e51ff;
+    --chart-2: #00bc7d;
+    --chart-3: #fe9a00;
+    --chart-4: #ad46ff;
+    --chart-5: #ff2056;
+    --sidebar: #171717;
+    --sidebar-foreground: #ededed;
+    --sidebar-primary: #8e51ff;
+    --sidebar-primary-foreground: #ededed;
+    --sidebar-accent: #262626;
+    --sidebar-accent-foreground: #ededed;
+    --sidebar-border: #ffffff1a;
+    --sidebar-ring: #737373;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #e7bf6c;
+  color: #4e1620;
+}
+
+.font-display {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.festive-glow {
+  background:
+    radial-gradient(circle at 82% 20%, rgb(239 178 66 / 22%), transparent 28%),
+    radial-gradient(circle at 10% 80%, rgb(141 28 43 / 9%), transparent 32%),
+    linear-gradient(135deg, #fffaf0 0%, #fff4db 50%, #fffaf0 100%);
+}
+
+.festive-glow::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.35;
+  background-image: radial-gradient(circle, #b77a27 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(90deg, transparent, black 70%, black);
+}
+
+.festive-button,
+.festive-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.festive-button {
+  background: #681c25;
+  color: #fffaf0;
+  box-shadow: 0 12px 28px rgb(104 28 37 / 20%);
+}
+
+.festive-button-secondary {
+  border: 1px solid #bc8334;
+  background: rgb(255 253 247 / 80%);
+  color: #681c25;
+}
+
+.festive-button:hover,
+.festive-button-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgb(104 28 37 / 18%);
+}
+
+.product-card,
+.product-image {
+  transition: transform 280ms ease, box-shadow 280ms ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 58px rgb(70 28 20 / 14%);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.035);
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cart-pop {
+  0% {
+    transform: scale(0.72);
+  }
+  65% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.reveal-up {
+  opacity: 0;
+  animation: reveal-up 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cart-badge {
+  animation: cart-pop 280ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
