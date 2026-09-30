@@ -234,10 +234,10 @@ function Hero({ onOrderOpen }: { onOrderOpen: () => void }) {
         </div>
         <div className="relative min-h-[390px] lg:min-h-[590px]">
           <div className="absolute left-[4%] top-[4%] h-[78%] w-[72%] overflow-hidden rounded-[2rem] border border-[#f1d9aa] bg-white p-2 shadow-[0_35px_90px_rgba(76,28,22,.2)] sm:rounded-[3rem]">
-            <Image src="/products/vasant-bagh.webp" alt="Vasant Bagh festive hamper" fill priority sizes="(max-width: 1024px) 75vw, 36vw" className="rounded-[1.6rem] object-cover sm:rounded-[2.6rem]" />
+            <Image src="/products/royal-heritage-deluxe-box.webp" alt="Royal Heritage Deluxe Box, KHP 0036" fill priority sizes="(max-width: 1024px) 75vw, 36vw" className="rounded-[1.6rem] object-cover sm:rounded-[2.6rem]" />
           </div>
           <div className="absolute bottom-[3%] right-[2%] h-[53%] w-[48%] overflow-hidden rounded-[1.7rem] border-[7px] border-[#fffaf0] bg-white shadow-[0_30px_80px_rgba(76,28,22,.24)] sm:rounded-[2.5rem]">
-            <Image src="/products/royal-bloom.webp" alt="Royal Bloom festive hamper" fill priority sizes="(max-width: 1024px) 48vw, 24vw" className="object-cover" />
+            <Image src="/products/divya-darshan-box.webp" alt="Divya Darshan Box, KHP 0031" fill priority sizes="(max-width: 1024px) 48vw, 24vw" className="object-cover" />
           </div>
           <div className="absolute right-[8%] top-0 rounded-full border border-[#d3a64f]/45 bg-[#fff8e8]/95 px-4 py-2 text-sm font-bold text-[#7b2b2e] shadow-lg backdrop-blur">27 festive gifts</div>
         </div>
