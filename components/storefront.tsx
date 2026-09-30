@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   Building2,
@@ -49,6 +49,12 @@ const WHATSAPP_NUMBER = "971525596653";
 const CART_STORAGE_KEY = "khau-galli-diwali-hamper-order-v1";
 
 type Cart = Record<string, number>;
+type CustomerDetails = {
+  name: string;
+  mobile: string;
+  deliveryArea: string;
+  preferredDeliveryDate: string;
+};
 type FilterKey = "all" | "under-50" | "50-99" | "100-149" | "150-plus";
 type SortKey = "featured" | "price-asc" | "price-desc";
 type AnalyticsEvent =
@@ -66,6 +72,13 @@ const filters: { key: FilterKey; label: string }[] = [
   { key: "100-149", label: "AED 100–149" },
   { key: "150-plus", label: "AED 150+" },
 ];
+
+const emptyCustomerDetails: CustomerDetails = {
+  name: "",
+  mobile: "",
+  deliveryArea: "",
+  preferredDeliveryDate: "",
+};
 
 const values = [
   [Gift, "Premium Dry Fruits & Sweets"],
@@ -98,7 +111,10 @@ function trackEvent(name: AnalyticsEvent, properties: Record<string, unknown> = 
   window.dispatchEvent(new CustomEvent("kg:analytics", { detail: event }));
 }
 
-function buildOrderMessage(items: { product: Product; quantity: number }[]) {
+function buildOrderMessage(
+  items: { product: Product; quantity: number }[],
+  customer: CustomerDetails,
+) {
   const itemLines = items
     .map(({ product, quantity }) => {
       const subtotal = product.price * quantity;
@@ -122,11 +138,22 @@ ${itemLines}
 
 Estimated Total: AED ${total}
 
-Name:
-Delivery Area:
-Preferred Delivery Date:
+Customer details:
+Name: ${customer.name.trim()}
+Mobile: ${customer.mobile.trim()}
+Delivery Area: ${customer.deliveryArea.trim()}
+Preferred Delivery Date: ${customer.preferredDeliveryDate}
 
 Please confirm availability and final order details.`;
+}
+
+function hasCompleteCustomerDetails(customer: CustomerDetails) {
+  return Boolean(
+    customer.name.trim().length >= 2
+      && customer.mobile.replace(/\D/g, "").length >= 7
+      && customer.deliveryArea.trim().length >= 2
+      && customer.preferredDeliveryDate,
+  );
 }
 
 function QuantitySelector({
@@ -191,7 +218,7 @@ function Header({ count, onCartOpen }: { count: number; onCartOpen: () => void }
   );
 }
 
-function Hero() {
+function Hero({ onOrderOpen }: { onOrderOpen: () => void }) {
   return (
     <section id="top" className="relative isolate overflow-hidden border-b border-[#a9742a]/15">
       <div className="festive-glow absolute inset-0 -z-10" aria-hidden="true" />
@@ -202,7 +229,7 @@ function Hero() {
           <p className="mt-7 max-w-xl text-lg leading-8 text-[#6e4a46] sm:text-xl">Thoughtfully curated gifting, beautifully presented for the season of lights.</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a className="festive-button justify-center px-7 py-4" href="#hampers">Shop hampers<ShoppingBag aria-hidden="true" /></a>
-            <a className="festive-button-secondary justify-center px-7 py-4" href={whatsappUrl(genericMessage)} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" />Order on WhatsApp</a>
+            <button type="button" className="festive-button-secondary justify-center px-7 py-4" onClick={onOrderOpen}><MessageCircle aria-hidden="true" />Order on WhatsApp</button>
           </div>
         </div>
         <div className="relative min-h-[390px] lg:min-h-[590px]">
@@ -238,12 +265,13 @@ function ProductCard({
   product,
   index,
   onView,
+  onOrder,
 }: {
   product: Product;
   index: number;
   onView: (product: Product) => void;
+  onOrder: (product: Product, quantity: number) => void;
 }) {
-  const directMessage = buildOrderMessage([{ product, quantity: 1 }]);
   return (
     <article className="product-card reveal-up overflow-hidden rounded-[1.6rem] border border-[#bd8739]/20 bg-[#fffdf7] shadow-[0_16px_45px_rgba(70,28,20,.08)]" style={{ animationDelay: `${Math.min(index, 7) * 45}ms` }}>
       <button type="button" className="group relative block aspect-[4/3] w-full overflow-hidden bg-[#f3ead8] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#b56b16]" onClick={() => onView(product)} aria-label={`View ${product.name} details`}>
@@ -261,11 +289,7 @@ function ProductCard({
         <p className="mt-4 line-clamp-2 min-h-12 text-sm leading-6 text-[#6d5550]">{product.contents.join(", ")}</p>
         <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
           <Button variant="outline" className="h-11 rounded-full border-[#b67b2a]/30 bg-transparent text-[#681c25] hover:bg-[#f7e7bf]" onClick={() => onView(product)}>View details</Button>
-          <Button asChild className="h-11 rounded-full bg-[#681c25] px-3 text-white hover:bg-[#7b2630]">
-            <a href={whatsappUrl(directMessage)} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_product_click", { product_id: product.id, product_code: product.code, quantity: 1 })}>
-              <MessageCircle aria-hidden="true" />Order
-            </a>
-          </Button>
+          <Button className="h-11 rounded-full bg-[#681c25] px-3 text-white hover:bg-[#7b2630]" onClick={() => onOrder(product, 1)}><MessageCircle aria-hidden="true" />Order</Button>
         </div>
       </div>
     </article>
@@ -276,10 +300,12 @@ function ProductModal({
   product,
   onClose,
   onAdd,
+  onOrder,
 }: {
   product: Product | null;
   onClose: () => void;
   onAdd: (product: Product, quantity: number) => void;
+  onOrder: (product: Product, quantity: number) => void;
 }) {
   const [quantity, setQuantity] = useState(1);
 
@@ -311,9 +337,7 @@ function ProductModal({
               </div>
               <div className="mt-auto grid gap-3 pt-8">
                 <Button className="h-13 rounded-full bg-[#681c25] text-base text-white hover:bg-[#7b2630]" onClick={() => onAdd(product, quantity)}><ShoppingBag aria-hidden="true" />Add to order</Button>
-                <Button asChild variant="outline" className="h-13 rounded-full border-[#a66a1c]/40 bg-transparent text-base text-[#681c25] hover:bg-[#f7e7bf]">
-                  <a href={whatsappUrl(buildOrderMessage([{ product, quantity }]))} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_product_click", { product_id: product.id, product_code: product.code, quantity })}><MessageCircle aria-hidden="true" />Order this hamper on WhatsApp</a>
-                </Button>
+                <Button variant="outline" className="h-13 rounded-full border-[#a66a1c]/40 bg-transparent text-base text-[#681c25] hover:bg-[#f7e7bf]" onClick={() => onOrder(product, quantity)}><MessageCircle aria-hidden="true" />Order this hamper</Button>
               </div>
             </div>
           </div>
@@ -374,6 +398,8 @@ function CartDrawer({
   open,
   onOpenChange,
   cartItems,
+  customerDetails,
+  onCustomerChange,
   onQuantityChange,
   onRemove,
   onClear,
@@ -381,41 +407,82 @@ function CartDrawer({
   open: boolean;
   onOpenChange: (open: boolean) => void;
   cartItems: { product: Product; quantity: number }[];
+  customerDetails: CustomerDetails;
+  onCustomerChange: (field: keyof CustomerDetails, value: string) => void;
   onQuantityChange: (id: string, quantity: number) => void;
   onRemove: (product: Product) => void;
   onClear: () => void;
 }) {
   const total = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const handleCheckout = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!hasCompleteCustomerDetails(customerDetails)) {
+      event.currentTarget.reportValidity();
+      return;
+    }
+    const message = buildOrderMessage(cartItems, customerDetails);
+    trackEvent("whatsapp_cart_checkout", { item_count: count, estimated_total: total });
+    window.open(whatsappUrl(message), "_blank", "noopener,noreferrer");
+  };
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full border-l-[#b77a27]/20 bg-[#fffaf0] p-0 sm:max-w-[500px]">
         <SheetHeader className="border-b border-[#b77a27]/15 p-6 pr-14 text-left">
           <SheetTitle className="font-display text-3xl text-[#681c25]">Order summary</SheetTitle>
-          <SheetDescription>{count ? `${count} hamper${count === 1 ? "" : "s"} ready for your WhatsApp enquiry.` : "Add hampers to start your order enquiry."}</SheetDescription>
+          <SheetDescription>{count ? `${count} hamper${count === 1 ? "" : "s"} selected. Add your details before continuing to WhatsApp.` : "Add hampers to start your order enquiry."}</SheetDescription>
         </SheetHeader>
         <div className="scrollbar-thin flex-1 overflow-y-auto px-5 py-5">
           {cartItems.length ? (
-            <div className="space-y-4">
-              {cartItems.map(({ product, quantity }) => (
-                <article key={product.id} className="rounded-2xl border border-[#b77a27]/18 bg-[#fffdf7] p-3 shadow-sm">
-                  <div className="flex gap-3">
-                    <div className="relative size-24 shrink-0 overflow-hidden rounded-xl bg-[#efe2cc]"><Image src={product.image} alt="" fill sizes="96px" className="object-cover" /></div>
-                    <div className="min-w-0 flex-1 py-1">
-                      <div className="flex items-start justify-between gap-2">
-                        <div><h3 className="font-display text-xl leading-5 text-[#681c25]">{product.name}</h3><p className="mt-1 text-xs font-bold tracking-wide text-[#9a715d]">{product.code}</p></div>
-                        <button type="button" onClick={() => onRemove(product)} className="grid size-9 shrink-0 place-items-center rounded-full text-[#9a4c47] hover:bg-[#f6dfdc]" aria-label={`Remove ${product.name}`}><Trash2 className="size-4" /></button>
+            <>
+              <div className="space-y-4">
+                {cartItems.map(({ product, quantity }) => (
+                  <article key={product.id} className="rounded-2xl border border-[#b77a27]/18 bg-[#fffdf7] p-3 shadow-sm">
+                    <div className="flex gap-3">
+                      <div className="relative size-24 shrink-0 overflow-hidden rounded-xl bg-[#efe2cc]"><Image src={product.image} alt="" fill sizes="96px" className="object-cover" /></div>
+                      <div className="min-w-0 flex-1 py-1">
+                        <div className="flex items-start justify-between gap-2">
+                          <div><h3 className="font-display text-xl leading-5 text-[#681c25]">{product.name}</h3><p className="mt-1 text-xs font-bold tracking-wide text-[#9a715d]">{product.code}</p></div>
+                          <button type="button" onClick={() => onRemove(product)} className="grid size-9 shrink-0 place-items-center rounded-full text-[#9a4c47] hover:bg-[#f6dfdc]" aria-label={`Remove ${product.name}`}><Trash2 className="size-4" /></button>
+                        </div>
+                        <p className="mt-2 text-sm font-black text-[#a45119]">AED {product.price * quantity}</p>
                       </div>
-                      <p className="mt-2 text-sm font-black text-[#a45119]">AED {product.price * quantity}</p>
                     </div>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between border-t border-[#b77a27]/12 pt-3">
-                    <span className="text-xs font-semibold text-[#80645d]">AED {product.price} each</span>
-                    <QuantitySelector quantity={quantity} onChange={(next) => onQuantityChange(product.id, next)} label={`Quantity for ${product.name}`} />
-                  </div>
-                </article>
-              ))}
-            </div>
+                    <div className="mt-3 flex items-center justify-between border-t border-[#b77a27]/12 pt-3">
+                      <span className="text-xs font-semibold text-[#80645d]">AED {product.price} each</span>
+                      <QuantitySelector quantity={quantity} onChange={(next) => onQuantityChange(product.id, next)} label={`Quantity for ${product.name}`} />
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <form id="kg-order-details" className="mt-6 rounded-2xl border border-[#b77a27]/22 bg-[#fffdf7] p-4 sm:p-5" onSubmit={handleCheckout}>
+                <div className="flex items-start justify-between gap-4">
+                  <div><p className="text-xs font-black uppercase tracking-[0.18em] text-[#a66a1c]">Delivery details</p><h3 className="mt-1 font-display text-2xl text-[#681c25]">Tell us where to reach you</h3></div>
+                  <span className="rounded-full bg-[#f5e5c3] px-3 py-1 text-[11px] font-bold text-[#7b2b2e]">Required</span>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-[#7c625d]">These details are added to your WhatsApp message so Khau Galli can respond with a complete order enquiry.</p>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <label className="grid gap-1.5 text-sm font-bold text-[#5f4140]">
+                    Full name <span className="sr-only">required</span>
+                    <Input required minLength={2} autoComplete="name" value={customerDetails.name} onChange={(event) => onCustomerChange("name", event.target.value)} placeholder="Your full name" className="h-11 border-[#b77a27]/25 bg-[#fffaf0] font-normal shadow-none focus-visible:ring-[#b56b16]/40" />
+                  </label>
+                  <label className="grid gap-1.5 text-sm font-bold text-[#5f4140]">
+                    Mobile number <span className="sr-only">required</span>
+                    <Input required type="tel" inputMode="tel" autoComplete="tel" pattern="[+0-9 ()-]{7,20}" title="Enter a valid mobile number" value={customerDetails.mobile} onChange={(event) => onCustomerChange("mobile", event.target.value)} placeholder="e.g. +971 50 123 4567" className="h-11 border-[#b77a27]/25 bg-[#fffaf0] font-normal shadow-none focus-visible:ring-[#b56b16]/40" />
+                  </label>
+                  <label className="grid gap-1.5 text-sm font-bold text-[#5f4140] sm:col-span-2">
+                    Delivery area <span className="sr-only">required</span>
+                    <Input required minLength={2} autoComplete="address-level2" value={customerDetails.deliveryArea} onChange={(event) => onCustomerChange("deliveryArea", event.target.value)} placeholder="Area or neighbourhood in the UAE" className="h-11 border-[#b77a27]/25 bg-[#fffaf0] font-normal shadow-none focus-visible:ring-[#b56b16]/40" />
+                  </label>
+                  <label className="grid gap-1.5 text-sm font-bold text-[#5f4140] sm:col-span-2">
+                    Preferred delivery date <span className="sr-only">required</span>
+                    <Input required type="date" value={customerDetails.preferredDeliveryDate} onChange={(event) => onCustomerChange("preferredDeliveryDate", event.target.value)} className="h-11 border-[#b77a27]/25 bg-[#fffaf0] font-normal shadow-none focus-visible:ring-[#b56b16]/40" />
+                  </label>
+                </div>
+                <p className="mt-4 text-xs leading-5 text-[#92746c]">Nothing is submitted on this page. Your details are only inserted into the WhatsApp message you choose to send.</p>
+              </form>
+            </>
           ) : (
             <div className="grid min-h-[55vh] place-items-center text-center">
               <div><span className="mx-auto grid size-16 place-items-center rounded-full bg-[#f3e1bd] text-[#7b2b2e]"><PackageOpen className="size-7" /></span><h3 className="mt-5 font-display text-2xl text-[#681c25]">Your order is empty</h3><p className="mt-2 max-w-xs text-sm leading-6 text-[#7c625d]">Choose a hamper, set the quantity and add it here. No payment is taken online.</p><Button variant="outline" className="mt-6 rounded-full border-[#b77a27]/30 bg-transparent" onClick={() => onOpenChange(false)}>Continue shopping</Button></div>
@@ -425,7 +492,7 @@ function CartDrawer({
         {cartItems.length ? (
           <SheetFooter className="border-t border-[#b77a27]/15 bg-[#fffdf7] p-5 sm:p-6">
             <div className="mb-2 flex items-end justify-between"><div><p className="text-sm font-bold text-[#74544f]">Estimated total</p><p className="text-xs text-[#94766d]">Availability and final details are confirmed on WhatsApp.</p></div><p className="font-display text-3xl font-bold text-[#681c25]">AED {total}</p></div>
-            <Button asChild className="h-13 rounded-full bg-[#681c25] text-base text-white hover:bg-[#7b2630]"><a href={whatsappUrl(buildOrderMessage(cartItems))} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_cart_checkout", { item_count: count, estimated_total: total })}><MessageCircle aria-hidden="true" />Continue on WhatsApp</a></Button>
+            <Button type="submit" form="kg-order-details" className="h-13 rounded-full bg-[#681c25] text-base text-white hover:bg-[#7b2630]"><MessageCircle aria-hidden="true" />Continue on WhatsApp</Button>
             <div className="grid grid-cols-2 gap-2">
               <Button variant="outline" className="rounded-full border-[#b77a27]/25 bg-transparent" onClick={() => onOpenChange(false)}>Continue shopping</Button>
               <Button variant="ghost" className="rounded-full text-[#93483f] hover:bg-[#f6dfdc]" onClick={onClear}><Trash2 aria-hidden="true" />Clear order</Button>
@@ -476,12 +543,12 @@ function Footer() {
   );
 }
 
-function MobileOrderBar({ count, total, onOpen }: { count: number; total: number; onOpen: () => void }) {
+function MobileOrderBar({ count, total, detailsComplete, onOpen }: { count: number; total: number; detailsComplete: boolean; onOpen: () => void }) {
   if (!count) return null;
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#a9742a]/20 bg-[#fffaf0]/96 p-3 shadow-[0_-12px_35px_rgba(70,28,20,.12)] backdrop-blur-xl sm:hidden">
       <button type="button" onClick={onOpen} className="flex h-14 w-full items-center justify-between rounded-full bg-[#681c25] px-5 text-left text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e5b755] focus-visible:ring-offset-2">
-        <span className="flex items-center gap-3"><span className="grid size-8 place-items-center rounded-full bg-white/15 text-sm font-black">{count}</span><span><strong className="block text-sm">View your order</strong><small className="block text-xs text-white/75">Ready for WhatsApp</small></span></span>
+        <span className="flex items-center gap-3"><span className="grid size-8 place-items-center rounded-full bg-white/15 text-sm font-black">{count}</span><span><strong className="block text-sm">View your order</strong><small className="block text-xs text-white/75">{detailsComplete ? "Ready for WhatsApp" : "Add delivery details"}</small></span></span>
         <strong className="text-base">AED {total}</strong>
       </button>
     </div>
@@ -494,6 +561,7 @@ export default function Storefront() {
   const [sort, setSort] = useState<SortKey>("featured");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [cart, setCart] = useState<Cart>({});
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>(emptyCustomerDetails);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartHydrated, setCartHydrated] = useState(false);
   const [status, setStatus] = useState("");
@@ -519,6 +587,7 @@ export default function Storefront() {
   );
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const customerDetailsComplete = hasCompleteCustomerDetails(customerDetails);
 
   const visibleProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -537,6 +606,14 @@ export default function Storefront() {
     trackEvent("add_to_order", { product_id: product.id, product_code: product.code, quantity, unit_price: product.price });
   }, []);
 
+  const orderNow = useCallback((product: Product, quantity: number) => {
+    setCart((current) => ({ ...current, [product.id]: (current[product.id] ?? 0) + quantity }));
+    setStatus(`${quantity} × ${product.name} added. Complete your delivery details to continue.`);
+    setSelectedProduct(null);
+    setCartOpen(true);
+    trackEvent("add_to_order", { product_id: product.id, product_code: product.code, quantity, unit_price: product.price, source: "order_button" });
+  }, []);
+
   const openProduct = useCallback((product: Product) => {
     setSelectedProduct(product);
     trackEvent("view_product", { product_id: product.id, product_code: product.code, price: product.price });
@@ -548,7 +625,14 @@ export default function Storefront() {
     setStatus(`${product.name} removed from your order.`);
     trackEvent("remove_from_order", { product_id: product.id, product_code: product.code });
   }, []);
-  const clearOrder = useCallback(() => { setCart({}); setStatus("Your order has been cleared."); }, []);
+  const updateCustomerDetails = useCallback((field: keyof CustomerDetails, value: string) => {
+    setCustomerDetails((current) => ({ ...current, [field]: value }));
+  }, []);
+  const clearOrder = useCallback(() => {
+    setCart({});
+    setCustomerDetails({ ...emptyCustomerDetails });
+    setStatus("Your order and delivery details have been cleared.");
+  }, []);
 
   useEffect(() => {
     const modelContext = (document as unknown as {
@@ -612,12 +696,30 @@ export default function Storefront() {
     register({
       name: "prepare_whatsapp_order",
       title: "Prepare WhatsApp order enquiry",
-      description: "Prepare, but do not send, the WhatsApp order enquiry for the visible order summary.",
-      inputSchema: { type: "object", properties: {}, additionalProperties: false },
+      description: "Prepare, but do not send, a complete WhatsApp order enquiry using the visible order summary and required customer delivery details.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          name: { type: "string", minLength: 2 },
+          mobile: { type: "string", minLength: 7 },
+          deliveryArea: { type: "string", minLength: 2 },
+          preferredDeliveryDate: { type: "string", minLength: 1 },
+        },
+        required: ["name", "mobile", "deliveryArea", "preferredDeliveryDate"],
+        additionalProperties: false,
+      },
       annotations: { readOnlyHint: true, untrustedContentHint: false },
-      execute: () => {
+      execute: (input: unknown) => {
         if (!cartItems.length) throw new Error("The order summary is empty");
-        const message = buildOrderMessage(cartItems);
+        const value = input && typeof input === "object" ? input as Partial<CustomerDetails> : {};
+        const customer: CustomerDetails = {
+          name: typeof value.name === "string" ? value.name : "",
+          mobile: typeof value.mobile === "string" ? value.mobile : "",
+          deliveryArea: typeof value.deliveryArea === "string" ? value.deliveryArea : "",
+          preferredDeliveryDate: typeof value.preferredDeliveryDate === "string" ? value.preferredDeliveryDate : "",
+        };
+        if (!hasCompleteCustomerDetails(customer)) throw new Error("Complete name, mobile, delivery area and preferred delivery date are required");
+        const message = buildOrderMessage(cartItems, customer);
         return { message, url: whatsappUrl(message), estimatedTotal: cartTotal, orderConfirmed: false };
       },
     });
@@ -627,7 +729,7 @@ export default function Storefront() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#fffaf0] text-[#3b171b]">
       <Header count={cartCount} onCartOpen={() => setCartOpen(true)} />
-      <Hero />
+      <Hero onOrderOpen={() => setCartOpen(true)} />
       <TrustStrip />
 
       <section id="hampers" className="mx-auto max-w-[1480px] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
@@ -637,7 +739,7 @@ export default function Storefront() {
         </div>
         <Filters query={query} onQueryChange={setQuery} filter={filter} onFilterChange={setFilter} sort={sort} onSortChange={setSort} resultCount={visibleProducts.length} />
         {visibleProducts.length ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{visibleProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} onView={openProduct} />)}</div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{visibleProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} onView={openProduct} onOrder={orderNow} />)}</div>
         ) : (
           <div className="grid min-h-72 place-items-center rounded-[1.8rem] border border-dashed border-[#b77a27]/35 bg-[#fffdf7] p-8 text-center"><div><Search className="mx-auto size-8 text-[#b17a3e]" /><h3 className="mt-4 font-display text-2xl text-[#681c25]">No hampers found</h3><p className="mt-2 text-sm text-[#7c625d]">Try another search or clear the price filter.</p><Button variant="outline" className="mt-5 rounded-full border-[#b77a27]/30 bg-transparent" onClick={() => { setQuery(""); setFilter("all"); }}>Clear filters</Button></div></div>
         )}
@@ -645,10 +747,10 @@ export default function Storefront() {
 
       <BulkOrderSection />
       <Footer />
-      <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onAdd={addToOrder} />
-      <CartDrawer open={cartOpen} onOpenChange={setCartOpen} cartItems={cartItems} onQuantityChange={changeCartQuantity} onRemove={removeFromOrder} onClear={clearOrder} />
+      <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onAdd={addToOrder} onOrder={orderNow} />
+      <CartDrawer open={cartOpen} onOpenChange={setCartOpen} cartItems={cartItems} customerDetails={customerDetails} onCustomerChange={updateCustomerDetails} onQuantityChange={changeCartQuantity} onRemove={removeFromOrder} onClear={clearOrder} />
       <a href={whatsappUrl(genericMessage)} target="_blank" rel="noreferrer" className={`fixed right-4 z-30 grid size-14 place-items-center rounded-full bg-[#1fa463] text-white shadow-[0_14px_35px_rgba(22,120,72,.35)] transition hover:-translate-y-1 hover:bg-[#168b52] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#11613a] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 ${cartCount ? "bottom-[5.75rem]" : "bottom-5"}`} aria-label="Message Khau Galli on WhatsApp"><MessageCircle className="size-6" /></a>
-      <MobileOrderBar count={cartCount} total={cartTotal} onOpen={() => setCartOpen(true)} />
+      <MobileOrderBar count={cartCount} total={cartTotal} detailsComplete={customerDetailsComplete} onOpen={() => setCartOpen(true)} />
       <output className="sr-only" aria-live="polite" aria-atomic="true">{status}</output>
     </main>
   );
