@@ -4,7 +4,6 @@
 import Image from "next/image";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {
-  BadgeCheck,
   BriefcaseBusiness,
   Building2,
   CalendarDays,
@@ -49,17 +48,12 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import {
-  addOns,
-  budgetRangeFor,
-  budgetRanges,
+  catalogueCategories,
   catalogueItems,
   catalogueSummary,
-  giftingGroupFor,
-  hampers,
+  categoryLabelFor,
   mithaiBoxPackaging,
-  mithaiSelections,
-  pricedHampers,
-  type BudgetRangeId,
+  type CatalogueCategory,
   type CatalogueItem,
 } from "@/data/products";
 
@@ -67,14 +61,8 @@ const WHATSAPP_NUMBER = "971525596653";
 const BASKET_STORAGE_KEY = "khau-galli-diwali-hamper-order-v1";
 
 type Basket = Record<string, number>;
-type SortKey = "catalogue" | "price-asc" | "price-desc" | "name";
-type RecipientFilter =
-  | "all"
-  | "Small gestures"
-  | "Team gifting"
-  | "Family gifting"
-  | "Premium gifting"
-  | "Signature previews";
+type SortKey = "price-desc" | "price-asc";
+type CategoryFilter = "all" | CatalogueCategory;
 
 type CustomerDetails = {
   name: string;
@@ -108,20 +96,12 @@ const emptyCustomerDetails: CustomerDetails = {
   notes: "",
 };
 
-const recipientOptions: Array<{ label: RecipientFilter; description: string; image: string }> = [
-  { label: "Small gestures", description: "Thoughtful tokens under AED 50", image: "/products/mini-nut-delight.webp" },
-  { label: "Team gifting", description: "Easy choices for teams and groups", image: "/products/executive-hamper.webp" },
-  { label: "Family gifting", description: "Generous boxes for shared celebrations", image: "/products/royal-dry-fruit-box.webp" },
-  { label: "Premium gifting", description: "Statement gifts from AED 150", image: "/products/royal-ganesha.webp" },
-  { label: "Signature previews", description: "Illustrated options priced on request", image: "/products/vintage-peacock.webp" },
-];
-
 const featuredSelections = [
-  { id: "golden-nuts-treat", label: "Small gesture" },
-  { id: "executive-hamper", label: "Great for teams" },
-  { id: "royal-heritage-deluxe-box", label: "Premium gifting" },
-  { id: "royal-ganesha", label: "Statement gift" },
-].map(({ id, label }) => ({ item: itemById.get(id)!, label }));
+  "royal-ganesha",
+  "vasant-bagh",
+  "royal-dry-fruit-box",
+  "vintage-peacock",
+].map((id) => itemById.get(id)!);
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-[#cbb78f] bg-[#fffdf8] px-3.5 text-base text-[#321317] outline-none transition placeholder:text-[#927d76] focus:border-[#9f6f25] focus:ring-2 focus:ring-[#dcbf7b]/35";
@@ -152,9 +132,7 @@ function priceLabel(item: CatalogueItem) {
 }
 
 function kindLabel(item: CatalogueItem) {
-  if (item.kind === "add-on") return "Hamper add-on";
-  if (item.kind === "mithai") return "1 KG selection";
-  return giftingGroupFor(item) ?? "Diwali hamper";
+  return categoryLabelFor(item.category);
 }
 
 function hasCompleteCustomerDetails(customer: CustomerDetails) {
@@ -312,17 +290,17 @@ function Header({ count, onBasketOpen }: { count: number; onBasketOpen: () => vo
 
 function Hero({ onBasketOpen }: { onBasketOpen: () => void }) {
   return (
-    <section id="top" className="atelier-hero relative isolate overflow-hidden text-[#fff8e8]">
+    <section id="top" className="atelier-hero relative isolate overflow-hidden text-[#42151a]">
       <div className="hero-ornament" aria-hidden="true" />
-      <div className="mx-auto grid min-h-[720px] max-w-[1500px] items-center gap-8 px-5 py-14 sm:px-8 lg:min-h-[770px] lg:grid-cols-[.92fr_1.08fr] lg:px-12 lg:py-20">
+      <div className="mx-auto grid min-h-[720px] max-w-[1500px] items-center gap-8 px-5 py-12 sm:px-8 lg:min-h-[770px] lg:grid-cols-[.86fr_1.14fr] lg:px-12 lg:py-16">
         <div className="relative z-10 max-w-3xl">
-          <p className="eyebrow-light">Khau Galli · Diwali Gifting 2026</p>
-          <h1 className="mt-5 font-display text-[clamp(3.45rem,8.1vw,7.8rem)] leading-[.82] tracking-[-0.055em]">
-            Gifts that arrive with
-            <em className="mt-2 block font-normal text-[#e8bd62]">a little theatre.</em>
+          <p className="eyebrow">Khau Galli · Diwali Gifting 2026</p>
+          <h1 className="mt-5 font-display text-[clamp(3.35rem,7.4vw,7.2rem)] leading-[.84] tracking-[-0.055em]">
+            Diwali gifts,
+            <em className="mt-2 block font-normal text-[#a7681c]">dressed for the occasion.</em>
           </h1>
-          <p className="mt-7 max-w-xl text-lg leading-8 text-[#f2dfc8] sm:text-xl">
-            Curated Diwali hampers for friends, family, teams and clients across the UAE - with a quote-ready journey built for WhatsApp.
+          <p className="mt-7 max-w-xl text-lg leading-8 text-[#6f514b] sm:text-xl">
+            Curated hampers, dry-fruit selections and mithai boxes for friends, family, teams and clients across the UAE.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
@@ -340,33 +318,51 @@ function Hero({ onBasketOpen }: { onBasketOpen: () => void }) {
               <BriefcaseBusiness aria-hidden="true" />Corporate gifting
             </a>
           </div>
-          <button type="button" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#efd498] underline decoration-[#c8963e] underline-offset-4" onClick={onBasketOpen}>
+          <button type="button" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#6d252c] underline decoration-[#b5832f] underline-offset-4" onClick={onBasketOpen}>
             <ShoppingBag className="size-4" aria-hidden="true" />Open your enquiry basket
           </button>
         </div>
 
-        <div className="hero-gallery relative min-h-[455px] sm:min-h-[590px] lg:min-h-[650px]" aria-label="Featured Khau Galli hampers">
+        <div className="hero-gallery relative min-h-[440px] sm:min-h-[590px] lg:min-h-[660px]" aria-label="A collage of Khau Galli Diwali hampers">
           <div className="hero-frame hero-frame-main">
             <Image
               src="/products/royal-ganesha.webp"
               alt="Royal Ganesha hamper from the Diwali 2026 catalogue"
               fill
               priority
-              sizes="(max-width: 1024px) 72vw, 34vw"
+              sizes="(max-width: 1024px) 68vw, 34vw"
               className="object-cover"
             />
-            <span className="hero-caption">Royal Ganesha · AED 210</span>
           </div>
-          <div className="hero-frame hero-frame-secondary">
+          <div className="hero-frame hero-frame-blue">
             <Image
-              src="/products/vintage-peacock.webp"
-              alt="Vintage Peacock illustrated hamper option"
+              src="/products/blue-bloom.webp"
+              alt="Blue Bloom hamper from the Diwali 2026 catalogue"
               fill
               priority
-              sizes="(max-width: 1024px) 50vw, 25vw"
+              sizes="(max-width: 1024px) 42vw, 22vw"
               className="object-cover"
             />
-            <span className="hero-caption">Signature preview</span>
+          </div>
+          <div className="hero-frame hero-frame-orange">
+            <Image
+              src="/products/orange-blossom.webp"
+              alt="Orange Blossom hamper from the Diwali 2026 catalogue"
+              fill
+              priority
+              sizes="(max-width: 1024px) 46vw, 23vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="hero-frame hero-frame-phoenix">
+            <Image
+              src="/products/phoenix-lift.webp"
+              alt="Phoenix Lift hamper from the Diwali 2026 catalogue"
+              fill
+              priority
+              sizes="(max-width: 1024px) 46vw, 22vw"
+              className="object-cover"
+            />
           </div>
           <div className="hero-seal"><span>{catalogueSummary.totalItems}</span> catalogue selections</div>
         </div>
@@ -396,75 +392,21 @@ function TrustStrip() {
   );
 }
 
-function DiscoverySection({
-  onBudgetSelect,
-  onRecipientSelect,
-}: {
-  onBudgetSelect: (range: BudgetRangeId) => void;
-  onRecipientSelect: (recipient: RecipientFilter) => void;
-}) {
-  const budgetVisuals: Record<BudgetRangeId, string> = {
-    "under-50": "/products/mini-nut-delight.webp",
-    "50-99": "/products/elite-hamper.webp",
-    "100-149": "/products/royal-heritage-deluxe-box.webp",
-    "150-plus": "/products/royal-ganesha.webp",
-  };
-  return (
-    <section className="bg-[#f3ead8] py-16 sm:py-20">
-      <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
-        <div className="section-heading-row">
-          <div><p className="eyebrow">Find your starting point</p><h2 className="section-title">Shop the way gifting actually happens</h2></div>
-          <p>Start with a budget, then narrow by the kind of gesture you want to make.</p>
-        </div>
-
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Shop by budget">
-          {budgetRanges.map((range) => {
-            const count = pricedHampers.filter((item) => budgetRangeFor(item.price) === range.id).length;
-            return (
-              <button key={range.id} type="button" className="budget-card group" onClick={() => onBudgetSelect(range.id)}>
-                <span className="relative block aspect-[1.6/1] overflow-hidden rounded-2xl bg-[#e4d5ba]">
-                  <Image src={budgetVisuals[range.id]} alt="" fill sizes="(max-width: 640px) 100vw, 25vw" className="object-cover transition duration-500 group-hover:scale-[1.04]" />
-                  <span className="absolute inset-0 bg-gradient-to-t from-[#2e0b10]/70 via-transparent to-transparent" />
-                </span>
-                <span className="mt-4 flex items-end justify-between gap-3 text-left"><span><strong>{range.label}</strong><small>{count} hampers</small></span><span className="budget-mark" aria-hidden="true">{String(count).padStart(2, "0")}</span></span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="mt-12">
-          <p className="eyebrow">Shop by recipient</p>
-          <div className="scrollbar-none -mx-5 mt-5 flex gap-4 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-5 lg:px-0">
-            {recipientOptions.map((option) => (
-              <button key={option.label} type="button" className="recipient-card group" onClick={() => onRecipientSelect(option.label)}>
-                <span className="relative block aspect-[4/3] overflow-hidden rounded-t-[1.3rem] bg-[#e6dac5]">
-                  <Image src={option.image} alt="" fill sizes="(max-width: 1024px) 48vw, 20vw" className="object-cover transition duration-500 group-hover:scale-[1.04]" />
-                </span>
-                <span className="block p-4 text-left"><strong>{option.label}</strong><small>{option.description}</small></span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function FeaturedSection({ onView }: { onView: (item: CatalogueItem) => void }) {
   return (
     <section className="bg-[#fffaf0] py-16 sm:py-24">
       <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
         <div className="section-heading-row">
-          <div><p className="eyebrow">Featured collection</p><h2 className="section-title">Four gifts, four different gestures</h2></div>
-          <p>Catalogue-led picks across the full price range, without invented bestseller claims.</p>
+          <div><p className="eyebrow">Selected from the catalogue</p><h2 className="section-title">A closer look at the collection</h2></div>
+          <p>Four distinctive presentations from Khau Galli&apos;s Diwali catalogue.</p>
         </div>
         <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {featuredSelections.map(({ item, label }, index) => (
+          {featuredSelections.map((item, index) => (
             <button key={item.id} type="button" className={`featured-card featured-card-${index + 1} group`} onClick={() => onView(item)}>
               <span className="relative block aspect-[4/3] overflow-hidden bg-[#e9ddc7]">
                 <Image src={item.image} alt={`${item.name} hamper`} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover transition duration-500 group-hover:scale-[1.035]" />
               </span>
-              <span className="featured-copy"><small>{label}</small><strong>{item.name}</strong><span>{priceLabel(item)}</span></span>
+              <span className="featured-copy"><small>{kindLabel(item)}</small><strong>{item.name}</strong><span>{priceLabel(item)}</span></span>
             </button>
           ))}
         </div>
@@ -500,7 +442,7 @@ function ProductCard({
           {preview ? `${preview}${item.contents.length > 3 ? ` +${item.contents.length - 3} more` : ""}` : item.price === null ? "Catalogue details to be confirmed on enquiry." : "Available as a catalogue add-on."}
         </p>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-          <button type="button" className="text-button" onClick={() => onView(item)}>View hamper</button>
+          <button type="button" className="text-button" onClick={() => onView(item)}>View details</button>
           <button type="button" className="add-icon-button" onClick={() => onAdd(item, 1)} aria-label={`Add ${item.name} to enquiry`}><Plus className="size-4" aria-hidden="true" />Add</button>
         </div>
       </div>
@@ -511,97 +453,62 @@ function ProductCard({
 function CollectionFilters({
   query,
   onQueryChange,
-  budget,
-  onBudgetChange,
-  recipient,
-  onRecipientChange,
+  category,
+  onCategoryChange,
   sort,
   onSortChange,
   resultCount,
 }: {
   query: string;
   onQueryChange: (value: string) => void;
-  budget: "all" | BudgetRangeId;
-  onBudgetChange: (value: "all" | BudgetRangeId) => void;
-  recipient: RecipientFilter;
-  onRecipientChange: (value: RecipientFilter) => void;
+  category: CategoryFilter;
+  onCategoryChange: (value: CategoryFilter) => void;
   sort: SortKey;
   onSortChange: (value: SortKey) => void;
   resultCount: number;
 }) {
   return (
     <div className="collection-tools">
-      <div className="grid gap-3 lg:grid-cols-[minmax(280px,1fr)_220px_220px]">
+      <div className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto px-1 pb-4" role="group" aria-label="Catalogue categories">
+        <button type="button" className={`filter-pill ${category === "all" ? "active" : ""}`} onClick={() => onCategoryChange("all")} aria-pressed={category === "all"}>All</button>
+        {catalogueCategories.map((option) => (
+          <button key={option.id} type="button" className={`filter-pill ${category === option.id ? "active" : ""}`} onClick={() => onCategoryChange(option.id)} aria-pressed={category === option.id}>{option.label}</button>
+        ))}
+      </div>
+      <div className="grid gap-3 border-t border-[#d8c5a0]/50 pt-4 lg:grid-cols-[minmax(280px,1fr)_230px]">
         <label className="relative block">
-          <span className="sr-only">Search hampers</span>
+          <span className="sr-only">Search catalogue</span>
           <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-[#8a7166]" aria-hidden="true" />
           <Input value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="Search name, code or contents" className="h-12 rounded-xl border-[#cbb78f] bg-[#fffdf8] pl-12 pr-10 text-base shadow-none focus-visible:ring-[#d0a650]/40" />
           {query ? <button type="button" onClick={() => onQueryChange("")} className="absolute right-2.5 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-[#78645e] hover:bg-[#f1e1bd]" aria-label="Clear search"><X className="size-4" /></button> : null}
         </label>
-        <Select value={recipient} onValueChange={(value) => onRecipientChange(value as RecipientFilter)}>
-          <SelectTrigger aria-label="Filter by gifting group" className="h-12 rounded-xl border-[#cbb78f] bg-[#fffdf8] px-4 text-base shadow-none"><SelectValue /></SelectTrigger>
-          <SelectContent className="border-[#cbb78f] bg-[#fffdf8]">
-            <SelectItem value="all">All gifting groups</SelectItem>
-            {recipientOptions.map((option) => <SelectItem key={option.label} value={option.label}>{option.label}</SelectItem>)}
-          </SelectContent>
-        </Select>
         <Select value={sort} onValueChange={(value) => onSortChange(value as SortKey)}>
-          <SelectTrigger aria-label="Sort hampers" className="h-12 rounded-xl border-[#cbb78f] bg-[#fffdf8] px-4 text-base shadow-none"><SelectValue /></SelectTrigger>
+          <SelectTrigger aria-label="Sort catalogue items" className="h-12 rounded-xl border-[#cbb78f] bg-[#fffdf8] px-4 text-base shadow-none"><SelectValue /></SelectTrigger>
           <SelectContent className="border-[#cbb78f] bg-[#fffdf8]">
-            <SelectItem value="catalogue">Catalogue order</SelectItem>
-            <SelectItem value="price-asc">Price: low to high</SelectItem>
-            <SelectItem value="price-desc">Price: high to low</SelectItem>
-            <SelectItem value="name">Name: A to Z</SelectItem>
+            <SelectItem value="price-desc">Price: High to Low</SelectItem>
+            <SelectItem value="price-asc">Price: Low to High</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      <div className="mt-4 flex items-center justify-between gap-4">
-        <div className="scrollbar-none -mx-1 flex min-w-0 flex-1 gap-2 overflow-x-auto px-1 pb-1" role="group" aria-label="Price filters">
-          <button type="button" className={`filter-pill ${budget === "all" ? "active" : ""}`} onClick={() => onBudgetChange("all")} aria-pressed={budget === "all"}>All prices</button>
-          {budgetRanges.map((range) => <button key={range.id} type="button" className={`filter-pill ${budget === range.id ? "active" : ""}`} onClick={() => onBudgetChange(range.id)} aria-pressed={budget === range.id}>{range.label}</button>)}
-        </div>
-        <p className="hidden shrink-0 text-sm font-semibold text-[#7c6861] sm:block">{resultCount} {resultCount === 1 ? "hamper" : "hampers"}</p>
-      </div>
+      <p className="mt-4 text-sm font-semibold text-[#7c6861]">{resultCount} {resultCount === 1 ? "selection" : "selections"}</p>
     </div>
   );
 }
 
-function MiniItemCard({ item, onView, onAdd }: { item: CatalogueItem; onView: (item: CatalogueItem) => void; onAdd: (item: CatalogueItem, quantity: number) => void }) {
+function PackagingSpotlight({ onViewMithai }: { onViewMithai: () => void }) {
   return (
-    <article className="mini-item-card">
-      <button type="button" className="relative block aspect-[4/3] w-full overflow-hidden bg-[#eadfc9]" onClick={() => onView(item)} aria-label={`View ${item.name}`}>
-        <Image src={item.image} alt={item.name} fill sizes="(max-width: 640px) 75vw, 25vw" className="object-cover transition duration-500 hover:scale-[1.035]" />
-      </button>
-      <div className="flex min-h-32 flex-col p-4">
-        <div className="flex items-start justify-between gap-3"><h3 className="font-display text-xl leading-5 text-[#56131c]">{item.name}</h3><strong className="shrink-0 text-sm text-[#915719]">{item.price === null ? "Quote" : formatAed(item.price)}</strong></div>
-        <p className="mt-2 text-xs font-bold uppercase tracking-[.14em] text-[#8c746b]">{item.weight ?? kindLabel(item)}</p>
-        <button type="button" className="mt-auto pt-4 text-left text-sm font-extrabold text-[#651823] underline decoration-[#c6a256] underline-offset-4" onClick={() => onAdd(item, 1)}>Add to enquiry</button>
-      </div>
-    </article>
-  );
-}
-
-function CurateSection({ onView, onAdd }: { onView: (item: CatalogueItem) => void; onAdd: (item: CatalogueItem, quantity: number) => void }) {
-  return (
-    <section id="custom-options" className="bg-[#321015] py-16 text-[#fff7e7] sm:py-24">
+    <section id="custom-options" className="packaging-spotlight py-16 sm:py-24">
       <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
-        <div className="section-heading-row dark">
-          <div><p className="eyebrow-light">From the catalogue</p><h2 className="section-title text-[#fff8e8]">Build a sweeter gift</h2></div>
-          <p>Choose a 1 KG sweet or dry-fruit selection, then note your preferred box and add festive accents.</p>
-        </div>
-        <div className="mt-10 grid items-stretch gap-6 lg:grid-cols-[1.15fr_.85fr]">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {mithaiSelections.map((item) => <MiniItemCard key={item.id} item={item} onView={onView} onAdd={onAdd} />)}
+        <div className="grid overflow-hidden rounded-[2rem] border border-[#d9bf89]/55 bg-[#fffaf0] shadow-[0_24px_70px_rgba(73,28,22,.1)] lg:grid-cols-[1.1fr_.9fr]">
+          <div className="relative min-h-[330px] bg-[#e8dbc1] sm:min-h-[470px]">
+            <Image src={mithaiBoxPackaging.image} alt="Five illustrated Khau Galli mithai box designs" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover" />
           </div>
-          <div className="overflow-hidden rounded-[1.7rem] border border-[#e5c36c]/25 bg-[#fff8e8] text-[#361318]">
-            <div className="relative aspect-[4/3] bg-[#e8dbc1]"><Image src={mithaiBoxPackaging.image} alt="Five illustrated Khau Galli mithai box designs" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" /></div>
-            <div className="p-6"><p className="eyebrow">Choose your mithai box</p><h3 className="mt-2 font-display text-3xl text-[#59141d]">Five pictured packaging options</h3><p className="mt-3 leading-7 text-[#6d5750]">{mithaiBoxPackaging.instruction} Add your preference in the enquiry notes; final availability is confirmed by the team.</p></div>
+          <div className="flex flex-col justify-center p-7 sm:p-12 lg:p-14">
+            <p className="eyebrow">Mithai box selection</p>
+            <h2 className="mt-4 font-display text-5xl leading-[.94] text-[#59141d] sm:text-6xl">Five pictured packaging options</h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-[#6d5750]">{mithaiBoxPackaging.instruction} Add your preference in the enquiry notes; final availability is confirmed by the team.</p>
+            <a className="hero-cta-primary mt-8 w-fit" href="#collection" onClick={onViewMithai}>View mithai selections</a>
           </div>
-        </div>
-
-        <div className="mt-14 flex items-end justify-between gap-5"><div><p className="eyebrow-light">Add to your hamper</p><h3 className="mt-2 font-display text-4xl text-[#fff8e8]">Finishing touches</h3></div><p className="hidden max-w-md text-right text-sm leading-6 text-[#decdb8] md:block">All 12 priced add-ons from the catalogue, ready to include in the same enquiry.</p></div>
-        <div className="scrollbar-none -mx-5 mt-7 flex gap-4 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-4 lg:px-0 xl:grid-cols-6">
-          {addOns.map((item) => <MiniItemCard key={item.id} item={item} onView={onView} onAdd={onAdd} />)}
         </div>
       </div>
     </section>
@@ -890,9 +797,8 @@ function MobileBasketBar({ count, total, unpricedLines, onOpen }: { count: numbe
 
 export default function Storefront() {
   const [query, setQuery] = useState("");
-  const [budget, setBudget] = useState<"all" | BudgetRangeId>("all");
-  const [recipient, setRecipient] = useState<RecipientFilter>("all");
-  const [sort, setSort] = useState<SortKey>("catalogue");
+  const [category, setCategory] = useState<CategoryFilter>("all");
+  const [sort, setSort] = useState<SortKey>("price-desc");
   const [selectedItem, setSelectedItem] = useState<CatalogueItem | null>(null);
   const [basket, setBasket] = useState<Basket>({});
   const [customer, setCustomer] = useState<CustomerDetails>(emptyCustomerDetails);
@@ -926,27 +832,21 @@ export default function Storefront() {
   const basketTotal = basketLines.reduce((sum, line) => sum + (line.item.price ?? 0) * line.quantity, 0);
   const unpricedLines = basketLines.filter((line) => line.item.price === null).length;
 
-  const visibleHampers = useMemo(() => {
+  const visibleProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    const filtered = hampers.filter((item) => {
+    const filtered = catalogueItems.filter((item) => {
       const matchesSearch = !normalized || [item.name, item.code ?? "", item.contents.join(" ")].some((value) => value.toLowerCase().includes(normalized));
-      const matchesBudget = budget === "all" || budgetRangeFor(item.price) === budget;
-      const matchesRecipient = recipient === "all" || giftingGroupFor(item) === recipient;
-      return matchesSearch && matchesBudget && matchesRecipient;
+      const matchesCategory = category === "all" || item.category === category;
+      return matchesSearch && matchesCategory;
     });
     return filtered.sort((a, b) => {
-      if (sort === "price-asc") return (a.price ?? Number.POSITIVE_INFINITY) - (b.price ?? Number.POSITIVE_INFINITY);
-      if (sort === "price-desc") return (b.price ?? Number.NEGATIVE_INFINITY) - (a.price ?? Number.NEGATIVE_INFINITY);
-      if (sort === "name") return a.name.localeCompare(b.name);
-      return a.cataloguePage - b.cataloguePage;
+      if (a.price === null && b.price === null) return a.cataloguePage - b.cataloguePage;
+      if (a.price === null) return 1;
+      if (b.price === null) return -1;
+      const difference = sort === "price-desc" ? b.price - a.price : a.price - b.price;
+      return difference || a.cataloguePage - b.cataloguePage;
     });
-  }, [budget, query, recipient, sort]);
-
-  const openCollection = useCallback(() => {
-    window.requestAnimationFrame(() => document.querySelector("#collection")?.scrollIntoView({ behavior: "smooth", block: "start" }));
-  }, []);
-  const selectBudget = useCallback((range: BudgetRangeId) => { setBudget(range); setRecipient("all"); openCollection(); }, [openCollection]);
-  const selectRecipient = useCallback((value: RecipientFilter) => { setRecipient(value); setBudget("all"); openCollection(); }, [openCollection]);
+  }, [category, query, sort]);
 
   const openProduct = useCallback((item: CatalogueItem) => {
     setSelectedItem(item);
@@ -998,17 +898,19 @@ export default function Storefront() {
 
     register({
       name: "list_hampers",
-      title: "List Diwali hampers",
-      description: "Read every Khau Galli Diwali hamper, optionally filtered by search text or maximum catalogue price.",
-      inputSchema: { type: "object", properties: { query: { type: "string" }, maxPrice: { type: "number", minimum: 0 } }, additionalProperties: false },
+      title: "List Diwali catalogue items",
+      description: "Read every Khau Galli Diwali catalogue item, optionally filtered by search text or one of the three catalogue categories.",
+      inputSchema: { type: "object", properties: { query: { type: "string" }, category: { type: "string", enum: catalogueCategories.map(({ id }) => id) } }, additionalProperties: false },
       annotations: { readOnlyHint: true, untrustedContentHint: false },
       execute: (input: unknown) => {
-        const value = input && typeof input === "object" ? input as { query?: unknown; maxPrice?: unknown } : {};
+        const value = input && typeof input === "object" ? input as { query?: unknown; category?: unknown } : {};
         if (value.query !== undefined && typeof value.query !== "string") throw new Error("query must be a string");
-        if (value.maxPrice !== undefined && (typeof value.maxPrice !== "number" || value.maxPrice < 0)) throw new Error("maxPrice must be a non-negative number");
+        if (value.category !== undefined && !catalogueCategories.some(({ id }) => id === value.category)) throw new Error("category must be a valid catalogue category");
         const search = typeof value.query === "string" ? value.query.toLowerCase() : "";
-        const maxPrice = typeof value.maxPrice === "number" ? value.maxPrice : undefined;
-        return hampers.filter((item) => (!search || `${item.name} ${item.code ?? ""} ${item.contents.join(" ")}`.toLowerCase().includes(search)) && (maxPrice === undefined || item.price === null || item.price <= maxPrice)).map(({ id, name, code, price, weight, contents }) => ({ id, name, code, price, weight, contents }));
+        const selectedCategory = typeof value.category === "string" ? value.category : undefined;
+        return catalogueItems
+          .filter((item) => (!search || `${item.name} ${item.code ?? ""} ${item.contents.join(" ")}`.toLowerCase().includes(search)) && (!selectedCategory || item.category === selectedCategory))
+          .map(({ id, name, code, price, weight, contents, category: itemCategory }) => ({ id, name, code, price, weight, contents, category: itemCategory }));
       },
     });
     register({
@@ -1065,22 +967,21 @@ export default function Storefront() {
       <Header count={basketCount} onBasketOpen={openBasket} />
       <Hero onBasketOpen={openBasket} />
       <TrustStrip />
-      <DiscoverySection onBudgetSelect={selectBudget} onRecipientSelect={selectRecipient} />
       <FeaturedSection onView={openProduct} />
 
       <section id="collection" className="scroll-mt-24 bg-[#fffdf8] py-16 sm:py-24">
         <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
-          <div className="section-heading-row"><div><p className="eyebrow">All hampers</p><h2 className="section-title">The full Diwali collection</h2></div><p>{catalogueSummary.hampers} hampers: {catalogueSummary.pricedHampers} with listed prices and {catalogueSummary.showcaseHampers} illustrated options quoted on request.</p></div>
-          <CollectionFilters query={query} onQueryChange={setQuery} budget={budget} onBudgetChange={setBudget} recipient={recipient} onRecipientChange={setRecipient} sort={sort} onSortChange={setSort} resultCount={visibleHampers.length} />
-          {visibleHampers.length ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visibleHampers.map((item, index) => <ProductCard key={item.id} item={item} index={index} onView={openProduct} onAdd={addToBasket} />)}</div>
+          <div className="section-heading-row"><div><p className="eyebrow">Diwali catalogue</p><h2 className="section-title">Explore every selection</h2></div><p>All {catalogueSummary.totalItems} catalogue items, organised into three straightforward product groups.</p></div>
+          <CollectionFilters query={query} onQueryChange={setQuery} category={category} onCategoryChange={setCategory} sort={sort} onSortChange={setSort} resultCount={visibleProducts.length} />
+          {visibleProducts.length ? (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visibleProducts.map((item, index) => <ProductCard key={item.id} item={item} index={index} onView={openProduct} onAdd={addToBasket} />)}</div>
           ) : (
-            <div className="empty-state"><Search className="mx-auto size-8 text-[#a57732]" aria-hidden="true" /><h3>No hampers match those filters</h3><p>Try another search or reset the budget and recipient filters.</p><Button variant="outline" className="mt-5 rounded-full border-[#bca16d] bg-transparent" onClick={() => { setQuery(""); setBudget("all"); setRecipient("all"); }}>Clear filters</Button></div>
+            <div className="empty-state"><Search className="mx-auto size-8 text-[#a57732]" aria-hidden="true" /><h3>No products match those filters</h3><p>Try another search or return to the full catalogue.</p><Button variant="outline" className="mt-5 rounded-full border-[#bca16d] bg-transparent" onClick={() => { setQuery(""); setCategory("all"); }}>Clear filters</Button></div>
           )}
         </div>
       </section>
 
-      <CurateSection onView={openProduct} onAdd={addToBasket} />
+      <PackagingSpotlight onViewMithai={() => setCategory("mithai-boxes-mix")} />
       <CorporateSection />
       <CustomGiftingSection />
       <Footer />
