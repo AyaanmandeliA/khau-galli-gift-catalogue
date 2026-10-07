@@ -2,14 +2,33 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Festive Hamper Collection | Khau Galli UAE",
+  metadataBase: new URL(
+    "https://catalog.thekhaugalli.com",
+  ),
+  title: "Khau Galli Diwali Gifting 2026 | UAE Hampers",
   description:
-    "Discover Khau Galli's Diwali 2026 festive hamper collection and send your order enquiry directly on WhatsApp.",
+    "Explore Khau Galli's Diwali 2026 hamper collection, mithai selections and festive add-ons for personal and corporate gifting across the UAE.",
   openGraph: {
-    title: "Khau Galli Festive Hamper Collection",
+    title: "Khau Galli Diwali Gifting 2026",
     description:
-      "Thoughtfully curated gifting, beautifully presented for the season of lights.",
+      "Curated hampers, mithai and festive add-ons for personal and corporate gifting across the UAE.",
     type: "website",
+    url: "/",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Khau Galli Diwali Gifting 2026",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Khau Galli Diwali Gifting 2026",
+    description:
+      "Curated hampers, mithai and festive add-ons for personal and corporate gifting across the UAE.",
+    images: ["/og.jpg"],
   },
   icons: {
     icon: "/favicon.svg",
