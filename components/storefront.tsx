@@ -633,7 +633,7 @@ function CartDrawer({
                   <article key={item.id} className="basket-line">
                     <div className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-[#e7dcc7]"><Image src={item.image} alt="" fill sizes="80px" className="object-cover" /></div>
                     <div className="min-w-0 flex-1"><h3 className="font-display text-lg leading-5 text-[#55131c]">{item.name}</h3><p className="mt-1 text-xs font-bold text-[#8a7166]">{item.code ?? kindLabel(item)}</p><p className="mt-1 text-sm font-extrabold text-[#94591c]">{priceLabel(item)}</p><button type="button" className="mt-2 text-xs font-bold text-[#8b4d47] underline underline-offset-2" onClick={() => onRemove(item)}>Remove</button></div>
-                    <QuantitySelector quantity={quantity} onChange={(value) => onQuantityChange(item.id, value)} label={`${item.name} quantity`} compact />
+                    <QuantitySelector quantity={quantity} onChange={(value) => onQuantityChange(item.id, value)} label={`${item.name} quantity`} compact allowRemove />
                   </article>
                 ))}
               </div>
