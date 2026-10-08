@@ -899,7 +899,7 @@ export default function Storefront() {
     register({
       name: "list_hampers",
       title: "List Diwali catalogue items",
-      description: "Read every Khau Galli Diwali catalogue item, optionally filtered by search text or one of the three catalogue categories.",
+      description: "Read every Khau Galli Diwali catalogue item, optionally filtered by search text or one of the four catalogue categories.",
       inputSchema: { type: "object", properties: { query: { type: "string" }, category: { type: "string", enum: catalogueCategories.map(({ id }) => id) } }, additionalProperties: false },
       annotations: { readOnlyHint: true, untrustedContentHint: false },
       execute: (input: unknown) => {
