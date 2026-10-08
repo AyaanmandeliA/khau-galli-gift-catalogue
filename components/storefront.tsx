@@ -300,7 +300,7 @@ function Hero({ onBasketOpen }: { onBasketOpen: () => void }) {
             <em className="mt-2 block font-normal text-[#a7681c]">dressed for the occasion.</em>
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-[#6f514b] sm:text-xl">
-            Curated hampers, dry-fruit selections and mithai boxes for friends, family, teams and clients across the UAE.
+            Curated hampers, dry-fruit selections, mithai boxes and festive décor for friends, family, teams and clients across the UAE.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
@@ -404,7 +404,7 @@ function FeaturedSection({ onView }: { onView: (item: CatalogueItem) => void }) 
           {featuredSelections.map((item, index) => (
             <button key={item.id} type="button" className={`featured-card featured-card-${index + 1} group`} onClick={() => onView(item)}>
               <span className="relative block aspect-[4/3] overflow-hidden bg-[#e9ddc7]">
-                <Image src={item.image} alt={`${item.name} hamper`} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover transition duration-500 group-hover:scale-[1.035]" />
+                <Image src={item.image} alt={`${item.name} hamper`} fill sizes="(max-width: 768px) 100vw, 25vw" className={`${item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} transition duration-500 group-hover:scale-[1.035]`} />
               </span>
               <span className="featured-copy"><small>{kindLabel(item)}</small><strong>{item.name}</strong><span>{priceLabel(item)}</span></span>
             </button>
@@ -430,7 +430,7 @@ function ProductCard({
   return (
     <article className="catalogue-card reveal-up" style={{ animationDelay: `${Math.min(index, 7) * 45}ms` }}>
       <button type="button" className="catalogue-image group" onClick={() => onView(item)} aria-label={`View ${item.name} details`}>
-        <Image src={item.image} alt={`${item.name} catalogue product`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className="object-cover transition duration-500 group-hover:scale-[1.035]" />
+        <Image src={item.image} alt={`${item.name} catalogue product`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className={`${item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} transition duration-500 group-hover:scale-[1.035]`} />
         <span className="catalogue-tag">{kindLabel(item)}</span>
       </button>
       <div className="flex min-h-[244px] flex-col p-5 sm:p-6">
@@ -532,7 +532,7 @@ function ProductDialog({
         <DialogContent className="max-h-[94vh] max-w-[1080px] overflow-y-auto border-[#bfa66e]/30 bg-[#fffaf0] p-0 sm:rounded-[1.8rem]">
           <div className="grid md:grid-cols-[1.08fr_.92fr]">
             <div className="relative min-h-[330px] overflow-hidden bg-[#eadfc9] md:min-h-[680px] md:rounded-l-[1.8rem]">
-              <Image src={item.image} alt={`${item.name} catalogue product`} fill sizes="(max-width: 768px) 100vw, 52vw" className="object-cover" />
+              <Image src={item.image} alt={`${item.name} catalogue product`} fill sizes="(max-width: 768px) 100vw, 52vw" className={item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} />
             </div>
             <div className="flex flex-col p-6 sm:p-9 md:p-11">
               <DialogHeader className="pr-8 text-left">

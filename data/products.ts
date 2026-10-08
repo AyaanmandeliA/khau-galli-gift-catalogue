@@ -1,11 +1,12 @@
 
 export type CatalogueItemKind = "hamper" | "mithai" | "add-on";
-export type CatalogueCategory = "gift-hampers" | "dry-fruit-hampers" | "mithai-boxes-mix";
+export type CatalogueCategory = "gift-hampers" | "dry-fruit-hampers" | "mithai-boxes-mix" | "diwali-decor-add-ons";
 
 export const catalogueCategories: Array<{ id: CatalogueCategory; label: string }> = [
   { id: "gift-hampers", label: "Gift Hampers" },
   { id: "dry-fruit-hampers", label: "Dry Fruit Hampers" },
   { id: "mithai-boxes-mix", label: "Mithai Boxes & Mix" },
+  { id: "diwali-decor-add-ons", label: "Diwali Décor & Add-ons" },
 ];
 
 export type CatalogueItem = {
@@ -60,18 +61,18 @@ export const catalogueItems: CatalogueItem[] = [
   { id: "besan-ladoo", name: "Besan Ladoo", code: null, price: null, weight: "1 KG", contents: [], image: "/products/besan-ladoo.webp", kind: "mithai", category: "mithai-boxes-mix", cataloguePage: 38, catalogueNote: "Images for illustration" },
   { id: "mixed-mithai-box", name: "Mixed Mithai Box", code: null, price: null, weight: "1 KG", contents: [], image: "/products/mixed-mithai-box.webp", kind: "mithai", category: "mithai-boxes-mix", cataloguePage: 39, catalogueNote: "Images for illustration" },
   { id: "motichur-ladoo", name: "Motichur Ladoo", code: null, price: null, weight: "1 KG", contents: [], image: "/products/motichur-ladoo.webp", kind: "mithai", category: "mithai-boxes-mix", cataloguePage: 40, catalogueNote: "Images for illustration" },
-  { id: "enamel-tray", name: "Enamel Tray", code: null, price: 70, weight: null, contents: [], image: "/products/enamel-tray.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 42 },
-  { id: "satrangi-t-light", name: "Satrangi T-Light", code: null, price: 20, weight: null, contents: [], image: "/products/satrangi-t-light.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 42 },
-  { id: "kundan-t-light", name: "Kundan T-Light", code: null, price: 20, weight: null, contents: [], image: "/products/kundan-t-light.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 42 },
-  { id: "four-lotus-diya", name: "4 Lotus Diya", code: null, price: 20, weight: null, contents: [], image: "/products/four-lotus-diya.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 42 },
-  { id: "urli-set", name: "Urli Set", code: null, price: 20, weight: null, contents: [], image: "/products/urli-set.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 42 },
-  { id: "pichwai-shubh-labh", name: "Pichwai Shubh Labh", code: null, price: 20, weight: null, contents: [], image: "/products/pichwai-shubh-labh.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 42 },
-  { id: "pichwai-plate", name: "Pichwai Plate", code: null, price: 20, weight: null, contents: [], image: "/products/pichwai-plate.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 43 },
-  { id: "potli-urli", name: "Potli Urli", code: null, price: 15, weight: null, contents: [], image: "/products/potli-urli.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 43 },
-  { id: "bling-t-light", name: "Bling T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/bling-t-light.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 43 },
-  { id: "diya-t-light", name: "Diya T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/diya-t-light.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 43 },
-  { id: "keri-t-light", name: "Keri T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/keri-t-light.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 43 },
-  { id: "lotus-patch-diya", name: "Lotus Patch Diya", code: null, price: 10, weight: null, contents: [], image: "/products/lotus-patch-diya.webp", kind: "add-on", category: "gift-hampers", cataloguePage: 43 },
+  { id: "enamel-tray", name: "Enamel Tray", code: null, price: 70, weight: null, contents: [], image: "/products/enamel-tray.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "satrangi-t-light", name: "Satrangi T-Light", code: null, price: 20, weight: null, contents: [], image: "/products/satrangi-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "kundan-t-light", name: "Kundan T-Light", code: null, price: 20, weight: null, contents: [], image: "/products/kundan-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "four-lotus-diya", name: "4 Lotus Diya", code: null, price: 20, weight: null, contents: [], image: "/products/four-lotus-diya.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "urli-set", name: "Urli Set", code: null, price: 20, weight: null, contents: [], image: "/products/urli-set.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "pichwai-shubh-labh", name: "Pichwai Shubh Labh", code: null, price: 20, weight: null, contents: [], image: "/products/pichwai-shubh-labh.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "pichwai-plate", name: "Pichwai Plate", code: null, price: 20, weight: null, contents: [], image: "/products/pichwai-plate.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
+  { id: "potli-urli", name: "Potli Urli", code: null, price: 15, weight: null, contents: [], image: "/products/potli-urli.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
+  { id: "bling-t-light", name: "Bling T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/bling-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
+  { id: "diya-t-light", name: "Diya T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/diya-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
+  { id: "keri-t-light", name: "Keri T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/keri-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
+  { id: "lotus-patch-diya", name: "Lotus Patch Diya", code: null, price: 10, weight: null, contents: [], image: "/products/lotus-patch-diya.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
 ];
 
 export const mithaiBoxPackaging = {
