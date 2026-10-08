@@ -543,6 +543,11 @@ textarea {
   font-weight: 900;
 }
 
+.catalogue-card .quantity-stepper {
+  border-color: rgb(100 22 33 / 38%);
+  box-shadow: 0 6px 16px rgb(68 18 24 / 8%);
+}
+
 .packaging-spotlight {
   background:
     radial-gradient(circle at 90% 15%, rgb(228 181 86 / 20%), transparent 26%),

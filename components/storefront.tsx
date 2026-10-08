@@ -205,12 +205,15 @@ function QuantitySelector({
   onChange,
   label,
   compact = false,
+  allowRemove = false,
 }: {
   quantity: number;
   onChange: (quantity: number) => void;
   label: string;
   compact?: boolean;
+  allowRemove?: boolean;
 }) {
+  const normalizeQuantity = (value: number) => allowRemove && value <= 0 ? 0 : safeQuantity(value);
   return (
     <div
       className={`quantity-stepper inline-flex items-center rounded-full border border-[#bca16d]/45 bg-[#fffdf8] p-1 ${compact ? "h-10" : "h-12"}`}
@@ -219,18 +222,18 @@ function QuantitySelector({
       <button
         type="button"
         className={`grid place-items-center rounded-full text-[#641621] transition hover:bg-[#f3e3bd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9f6f25] ${compact ? "size-8" : "size-10"}`}
-        onClick={() => onChange(safeQuantity(quantity - 1))}
+        onClick={() => onChange(normalizeQuantity(quantity - 1))}
         aria-label={`Decrease ${label}`}
       >
         <Minus className="size-4" aria-hidden="true" />
       </button>
       <input
         type="number"
-        min={1}
+        min={allowRemove ? 0 : 1}
         max={99999}
         inputMode="numeric"
         value={quantity}
-        onChange={(event) => onChange(safeQuantity(Number(event.target.value)))}
+        onChange={(event) => onChange(normalizeQuantity(Number(event.target.value)))}
         className={`bg-transparent text-center font-extrabold text-[#3c171a] outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none ${compact ? "w-11 text-sm" : "w-14 text-base"}`}
         aria-label={label}
       />
@@ -418,13 +421,17 @@ function FeaturedSection({ onView }: { onView: (item: CatalogueItem) => void }) 
 function ProductCard({
   item,
   index,
+  quantity,
   onView,
   onAdd,
+  onQuantityChange,
 }: {
   item: CatalogueItem;
   index: number;
+  quantity: number;
   onView: (item: CatalogueItem) => void;
   onAdd: (item: CatalogueItem, quantity: number) => void;
+  onQuantityChange: (id: string, quantity: number) => void;
 }) {
   const preview = item.contents.slice(0, 3).join(", ");
   return (
@@ -443,7 +450,17 @@ function ProductCard({
         </p>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
           <button type="button" className="text-button" onClick={() => onView(item)}>View details</button>
-          <button type="button" className="add-icon-button" onClick={() => onAdd(item, 1)} aria-label={`Add ${item.name} to enquiry`}><Plus className="size-4" aria-hidden="true" />Add</button>
+          {quantity ? (
+            <QuantitySelector
+              quantity={quantity}
+              onChange={(nextQuantity) => onQuantityChange(item.id, nextQuantity)}
+              label={`${item.name} quantity in enquiry`}
+              compact
+              allowRemove
+            />
+          ) : (
+            <button type="button" className="add-icon-button" onClick={() => onAdd(item, 1)} aria-label={`Add ${item.name} to enquiry`}><Plus className="size-4" aria-hidden="true" />Add</button>
+          )}
         </div>
       </div>
     </article>
@@ -894,7 +911,16 @@ export default function Storefront() {
   }, []);
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
-    setBasket((current) => ({ ...current, [id]: safeQuantity(quantity) }));
+    const item = itemById.get(id);
+    if (quantity <= 0) {
+      setBasket((current) => { const next = { ...current }; delete next[id]; return next; });
+      setStatus(`${item?.name ?? "Item"} removed from your enquiry.`);
+      if (item) trackEvent("product_removed", { product_id: item.id, product_code: item.code, kind: item.kind });
+      return;
+    }
+    const safe = safeQuantity(quantity);
+    setBasket((current) => ({ ...current, [id]: safe }));
+    setStatus(`${item?.name ?? "Item"} quantity updated to ${safe}.`);
   }, []);
 
   const updateCustomer = useCallback((field: keyof CustomerDetails, value: string) => {
@@ -995,7 +1021,7 @@ export default function Storefront() {
           <div className="section-heading-row"><div><p className="eyebrow">Diwali catalogue</p><h2 className="section-title">Explore every selection</h2></div><p>All {catalogueSummary.totalItems} catalogue items, organised into four straightforward product groups.</p></div>
           <CollectionFilters query={query} onQueryChange={setQuery} category={category} onCategoryChange={setCategory} sort={sort} onSortChange={setSort} resultCount={visibleProducts.length} />
           {visibleProducts.length ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visibleProducts.map((item, index) => <ProductCard key={item.id} item={item} index={index} onView={openProduct} onAdd={addToBasket} />)}</div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visibleProducts.map((item, index) => <ProductCard key={item.id} item={item} index={index} quantity={basket[item.id] ?? 0} onView={openProduct} onAdd={addToBasket} onQuantityChange={updateQuantity} />)}</div>
           ) : (
             <div className="empty-state"><Search className="mx-auto size-8 text-[#a57732]" aria-hidden="true" /><h3>No products match those filters</h3><p>Try another search or return to the full catalogue.</p><Button variant="outline" className="mt-5 rounded-full border-[#bca16d] bg-transparent" onClick={() => { setQuery(""); setCategory("all"); }}>Clear filters</Button></div>
           )}
