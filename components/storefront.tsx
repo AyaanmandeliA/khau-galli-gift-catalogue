@@ -840,11 +840,11 @@ export default function Storefront() {
       return matchesSearch && matchesCategory;
     });
     return filtered.sort((a, b) => {
-      if (a.price === null && b.price === null) return a.cataloguePage - b.cataloguePage;
+      if (a.price === null && b.price === null) return (a.cataloguePage ?? Number.MAX_SAFE_INTEGER) - (b.cataloguePage ?? Number.MAX_SAFE_INTEGER);
       if (a.price === null) return 1;
       if (b.price === null) return -1;
       const difference = sort === "price-desc" ? b.price - a.price : a.price - b.price;
-      return difference || a.cataloguePage - b.cataloguePage;
+      return difference || (a.cataloguePage ?? Number.MAX_SAFE_INTEGER) - (b.cataloguePage ?? Number.MAX_SAFE_INTEGER);
     });
   }, [category, query, sort]);
 
@@ -971,7 +971,7 @@ export default function Storefront() {
 
       <section id="collection" className="scroll-mt-24 bg-[#fffdf8] py-16 sm:py-24">
         <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
-          <div className="section-heading-row"><div><p className="eyebrow">Diwali catalogue</p><h2 className="section-title">Explore every selection</h2></div><p>All {catalogueSummary.totalItems} catalogue items, organised into three straightforward product groups.</p></div>
+          <div className="section-heading-row"><div><p className="eyebrow">Diwali catalogue</p><h2 className="section-title">Explore every selection</h2></div><p>All {catalogueSummary.totalItems} catalogue items, organised into four straightforward product groups.</p></div>
           <CollectionFilters query={query} onQueryChange={setQuery} category={category} onCategoryChange={setCategory} sort={sort} onSortChange={setSort} resultCount={visibleProducts.length} />
           {visibleProducts.length ? (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{visibleProducts.map((item, index) => <ProductCard key={item.id} item={item} index={index} onView={openProduct} onAdd={addToBasket} />)}</div>

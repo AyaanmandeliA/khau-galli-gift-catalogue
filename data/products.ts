@@ -19,7 +19,7 @@ export type CatalogueItem = {
   image: string;
   kind: CatalogueItemKind;
   category: CatalogueCategory;
-  cataloguePage: number;
+  cataloguePage: number | null;
   catalogueNote?: string;
 };
 
@@ -62,6 +62,7 @@ export const catalogueItems: CatalogueItem[] = [
   { id: "mixed-mithai-box", name: "Mixed Mithai Box", code: null, price: null, weight: "1 KG", contents: [], image: "/products/mixed-mithai-box.webp", kind: "mithai", category: "mithai-boxes-mix", cataloguePage: 39, catalogueNote: "Images for illustration" },
   { id: "motichur-ladoo", name: "Motichur Ladoo", code: null, price: null, weight: "1 KG", contents: [], image: "/products/motichur-ladoo.webp", kind: "mithai", category: "mithai-boxes-mix", cataloguePage: 40, catalogueNote: "Images for illustration" },
   { id: "enamel-tray", name: "Enamel Tray", code: null, price: 70, weight: null, contents: [], image: "/products/enamel-tray.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
+  { id: "peacock-coaster-set", name: "Peacock Coaster Set", code: null, price: 50, weight: null, contents: ["Set of 6 coasters"], image: "/products/peacock-coaster-set.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: null, catalogueNote: "Supplemental hamper add-on" },
   { id: "satrangi-t-light", name: "Satrangi T-Light", code: null, price: 20, weight: null, contents: [], image: "/products/satrangi-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
   { id: "kundan-t-light", name: "Kundan T-Light", code: null, price: 20, weight: null, contents: [], image: "/products/kundan-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
   { id: "four-lotus-diya", name: "4 Lotus Diya", code: null, price: 20, weight: null, contents: [], image: "/products/four-lotus-diya.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 42 },
@@ -73,6 +74,7 @@ export const catalogueItems: CatalogueItem[] = [
   { id: "diya-t-light", name: "Diya T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/diya-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
   { id: "keri-t-light", name: "Keri T-Light", code: null, price: 15, weight: null, contents: [], image: "/products/keri-t-light.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
   { id: "lotus-patch-diya", name: "Lotus Patch Diya", code: null, price: 10, weight: null, contents: [], image: "/products/lotus-patch-diya.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: 43 },
+  { id: "lotus-agarbatti-stand", name: "Lotus Agarbatti Stand", code: null, price: 10, weight: null, contents: ["1 agarbatti stand"], image: "/products/lotus-agarbatti-stand.webp", kind: "add-on", category: "diwali-decor-add-ons", cataloguePage: null, catalogueNote: "Supplemental hamper add-on" },
 ];
 
 export const mithaiBoxPackaging = {
