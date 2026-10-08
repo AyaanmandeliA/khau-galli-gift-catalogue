@@ -795,6 +795,27 @@ function MobileBasketBar({ count, total, unpricedLines, onOpen }: { count: numbe
   );
 }
 
+function FloatingEnquiryActions({ count, onOpen }: { count: number; onOpen: () => void }) {
+  const genericMessage = "Hello Khau Galli, I would like to enquire about Diwali gifting.";
+  return (
+    <div className={`floating-actions ${count ? "floating-actions-with-basket" : ""}`} role="group" aria-label="Quick enquiry actions">
+      <button
+        type="button"
+        className="floating-enquiry-button"
+        onClick={onOpen}
+        aria-label={`Open enquiry basket, ${count} item${count === 1 ? "" : "s"}`}
+      >
+        <ShoppingBag className="size-5" aria-hidden="true" />
+        <span>Enquire</span>
+        <span key={count} className="floating-enquiry-count" aria-hidden="true">{count}</span>
+      </button>
+      <a href={whatsappUrl(genericMessage)} target="_blank" rel="noreferrer" className="whatsapp-float" aria-label="Message Khau Galli on WhatsApp">
+        <MessageCircle className="size-6" aria-hidden="true" />
+      </a>
+    </div>
+  );
+}
+
 export default function Storefront() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryFilter>("all");
@@ -988,7 +1009,7 @@ export default function Storefront() {
 
       <ProductDialog item={selectedItem} onClose={() => setSelectedItem(null)} onAdd={addToBasket} />
       <CartDrawer open={basketOpen} onOpenChange={setBasketOpen} lines={basketLines} customer={customer} onCustomerChange={updateCustomer} onQuantityChange={updateQuantity} onRemove={removeItem} onClear={clearBasket} />
-      <a href={whatsappUrl("Hello Khau Galli, I would like to enquire about Diwali gifting.")} target="_blank" rel="noreferrer" className={`whatsapp-float ${basketCount ? "bottom-[5.7rem]" : "bottom-5"}`} aria-label="Message Khau Galli on WhatsApp"><MessageCircle className="size-6" aria-hidden="true" /></a>
+      <FloatingEnquiryActions count={basketCount} onOpen={openBasket} />
       <MobileBasketBar count={basketCount} total={basketTotal} unpricedLines={unpricedLines} onOpen={openBasket} />
       <output className="sr-only" aria-live="polite" aria-atomic="true">{status}</output>
     </main>
