@@ -4,6 +4,8 @@
 import Image from "next/image";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {
+  ChevronLeft,
+  ChevronRight,
   BriefcaseBusiness,
   Building2,
   CalendarDays,
@@ -418,6 +420,32 @@ function FeaturedSection({ onView }: { onView: (item: CatalogueItem) => void }) 
   );
 }
 
+function ProductGallery({ item, onView, detail = false }: { item: CatalogueItem; onView?: () => void; detail?: boolean }) {
+  const images = item.images?.length ? item.images : [item.image];
+  const [active, setActive] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  useEffect(() => setActive(0), [item.id]);
+  const move = (direction: number) => setActive((current) => (current + direction + images.length) % images.length);
+  return (
+    <div className={detail ? "product-gallery product-gallery-detail" : "catalogue-image product-gallery"} role="region" aria-label={`${item.name} photos`} onKeyDown={(event) => {
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1); }
+    }} onTouchStart={(event) => setTouchStart(event.touches[0].clientX)} onTouchEnd={(event) => {
+      if (touchStart !== null && images.length > 1) { const distance = touchStart - event.changedTouches[0].clientX; if (Math.abs(distance) > 40) move(distance > 0 ? 1 : -1); }
+      setTouchStart(null);
+    }}>
+      {onView ? <button type="button" className="absolute inset-0" onClick={onView} aria-label={`View ${item.name} details`}>
+        <Image src={images[active]} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
+      </button> : <Image src={images[active]} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
+      {!detail && <span className="catalogue-tag pointer-events-none">{kindLabel(item)}</span>}
+      {images.length > 1 && <>
+        <button type="button" className="gallery-arrow gallery-prev" onClick={() => move(-1)} aria-label={`Previous photo of ${item.name}`}><ChevronLeft size={20} /></button>
+        <button type="button" className="gallery-arrow gallery-next" onClick={() => move(1)} aria-label={`Next photo of ${item.name}`}><ChevronRight size={20} /></button>
+        <span className="gallery-count" aria-live="polite">{active + 1} / {images.length}</span>
+      </>}
+    </div>
+  );
+}
+
 function ProductCard({
   item,
   index,
@@ -436,10 +464,7 @@ function ProductCard({
   const preview = item.contents.slice(0, 3).join(", ");
   return (
     <article className="catalogue-card reveal-up" style={{ animationDelay: `${Math.min(index, 7) * 45}ms` }}>
-      <button type="button" className="catalogue-image group" onClick={() => onView(item)} aria-label={`View ${item.name} details`}>
-        <Image src={item.image} alt={`${item.name} catalogue product`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className={`${item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} transition duration-500 group-hover:scale-[1.035]`} />
-        <span className="catalogue-tag">{kindLabel(item)}</span>
-      </button>
+      <ProductGallery item={item} onView={() => onView(item)} />
       <div className="flex min-h-[244px] flex-col p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0"><h3 className="font-display text-[1.72rem] leading-[1.04] text-[#55121b]">{item.name}</h3>{item.code ? <p className="mt-2 text-xs font-black uppercase tracking-[.16em] text-[#8a7166]">{item.code}</p> : null}</div>
@@ -548,9 +573,7 @@ function ProductDialog({
       {item ? (
         <DialogContent className="max-h-[94vh] max-w-[1080px] overflow-y-auto border-[#bfa66e]/30 bg-[#fffaf0] p-0 sm:rounded-[1.8rem]">
           <div className="grid md:grid-cols-[1.08fr_.92fr]">
-            <div className="relative min-h-[330px] overflow-hidden bg-[#eadfc9] md:min-h-[680px] md:rounded-l-[1.8rem]">
-              <Image src={item.image} alt={`${item.name} catalogue product`} fill sizes="(max-width: 768px) 100vw, 52vw" className={item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} />
-            </div>
+            <ProductGallery key={item.id} item={item} detail />
             <div className="flex flex-col p-6 sm:p-9 md:p-11">
               <DialogHeader className="pr-8 text-left">
                 <p className="eyebrow">{kindLabel(item)}</p>

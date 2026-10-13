@@ -970,3 +970,14 @@ textarea {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Product photo galleries — ordered edited originals. */
+.product-gallery { touch-action: pan-y; background: #fff7e6; }
+.product-gallery-detail { position: relative; min-height: 330px; overflow: hidden; }
+.gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgb(255 250 240 / 95%); color: #59141d; box-shadow: 0 2px 12px #0002; }
+.gallery-arrow:hover { background: #fff; }
+.gallery-arrow:focus-visible { outline: 3px solid #995b1b; outline-offset: 3px; }
+.gallery-prev { left: 10px; }
+.gallery-next { right: 10px; }
+.gallery-count { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); border-radius: 20px; padding: 4px 12px; background: rgb(53 12 18 / 82%); color: #fffaf0; font-size: 12px; pointer-events: none; }
+@media (min-width: 768px) { .product-gallery-detail { min-height: 680px; border-radius: 1.8rem 0 0 1.8rem; } }
