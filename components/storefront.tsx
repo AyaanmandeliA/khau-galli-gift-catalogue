@@ -424,6 +424,15 @@ function ProductGallery({ item, onView, detail = false }: { item: CatalogueItem;
   const images = item.images?.length ? item.images : [item.image];
   const [active, setActive] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [loadedSource, setLoadedSource] = useState<string | null>(null);
+  const source = images[active];
+  useEffect(() => {
+    if (images.length < 2) return;
+    for (const index of [(active + 1) % images.length, (active - 1 + images.length) % images.length]) {
+      const preload = new window.Image();
+      preload.src = images[index];
+    }
+  }, [active, images]);
   useEffect(() => setActive(0), [item.id]);
   const move = (direction: number) => setActive((current) => (current + direction + images.length) % images.length);
   return (
@@ -434,8 +443,9 @@ function ProductGallery({ item, onView, detail = false }: { item: CatalogueItem;
       setTouchStart(null);
     }}>
       {onView ? <button type="button" className="absolute inset-0" onClick={onView} aria-label={`View ${item.name} details`}>
-        <Image src={images[active]} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
-      </button> : <Image src={images[active]} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
+        <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
+      </button> : <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
+      {loadedSource !== source && <span role="status" className="pointer-events-none absolute inset-0 grid place-items-center text-sm font-semibold text-[#6f514b]">Loading photo…</span>}
       {!detail && <span className="catalogue-tag pointer-events-none">{kindLabel(item)}</span>}
       {images.length > 1 && <>
         <button type="button" className="gallery-arrow gallery-prev" onClick={() => move(-1)} aria-label={`Previous photo of ${item.name}`}><ChevronLeft size={20} /></button>
