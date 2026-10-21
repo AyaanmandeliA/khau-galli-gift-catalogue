@@ -593,7 +593,7 @@ function ProductDialog({
               <dl className="mt-7 grid grid-cols-2 gap-3 rounded-2xl border border-[#d9c7a3] bg-[#fffdf8] p-4 text-sm">
                 <div><dt className="detail-label">Product code</dt><dd>{item.code ?? "Not listed"}</dd></div>
                 <div><dt className="detail-label">Weight</dt><dd>{item.weight ?? "Not listed"}</dd></div>
-                {item.deliveryPrice !== undefined && <><div><dt className="detail-label">POS price</dt><dd>{formatAed(item.price ?? 0)}</dd></div><div><dt className="detail-label">Delivery price</dt><dd>{formatAed(item.deliveryPrice)}</dd></div></>}
+
               </dl>
               <div className="mt-7 border-y border-[#cbb78f]/55 py-6">
                 <p className="detail-label mb-3">{item.contents.length ? "What's inside" : "Catalogue information"}</p>
