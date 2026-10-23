@@ -879,6 +879,14 @@ export default function Storefront() {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
+    const refreshRestoredPage = (event: PageTransitionEvent) => {
+      if (event.persisted) window.location.reload();
+    };
+    window.addEventListener("pageshow", refreshRestoredPage);
+    return () => window.removeEventListener("pageshow", refreshRestoredPage);
+  }, []);
+
+  useEffect(() => {
     try {
       const saved = localStorage.getItem(BASKET_STORAGE_KEY);
       if (saved) {
