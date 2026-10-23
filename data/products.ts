@@ -25,6 +25,7 @@ export type CatalogueItem = {
 };
 
 export const catalogueItems: CatalogueItem[] = [
+  {"id": "kesari-diya-nut-hamper", "name": "Kesari Diya Nut Hamper", "code": "KHP 0049", "price": 40, "weight": null, "contents": ["Cashews", "Almonds", "Decorative diya holder", "Festive gift box"], "image": "/products/gallery/khp-0049-01-enhanced.jpg", "images": ["/products/gallery/khp-0049-01-enhanced.jpg", "/products/gallery/khp-0049-02-enhanced.jpg"], "kind": "hamper", "category": "gift-hampers", "cataloguePage": null},
   // KSB sweet boxes: 2026 Sweet Box With Sweet And Price.xlsx; enhanced photos supplied 15 October 2026.
   {"id": "ksb-0001", "name": "Sweet Box — KSB 0001", "code": "KSB 0001", "price": 50, "weight": "400 GM", "contents": ["Kesar Peda", "Mohan Thal", "Anjeer Burfi"], "image": "/products/gallery/ksb-0001-01-enhanced.jpg", "images": ["/products/gallery/ksb-0001-01-enhanced.jpg", "/products/gallery/ksb-0001-02-enhanced.jpg", "/products/gallery/ksb-0001-03-enhanced.jpg"], "kind": "mithai", "category": "mithai-boxes-mix", "cataloguePage": null},
   {"id": "ksb-0002", "name": "Sweet Box — KSB 0002", "code": "KSB 0002", "price": 40, "weight": "400 GM", "contents": ["Motichoor Ladoo", "Khoya Chocolate Burfi", "Safed Peda"], "image": "/products/gallery/ksb-0002-01-enhanced.jpg", "images": ["/products/gallery/ksb-0002-01-enhanced.jpg", "/products/gallery/ksb-0002-02-enhanced.jpg", "/products/gallery/ksb-0002-03-enhanced.jpg", "/products/gallery/ksb-0002-04-enhanced.jpg"], "kind": "mithai", "category": "mithai-boxes-mix", "cataloguePage": null},
