@@ -3,6 +3,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import source from '../data/hamper-source.mjs';
+import corrections from '../data/catalogue-corrections.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export function readCatalogue() {
@@ -18,11 +19,13 @@ export function verifyCatalogue(items) {
     const item = items.find(item => item.id === row.productId);
     assert.ok(item, `Missing workbook entry ${row.code}: ${row.displayName}`);
     assert.equal(item.code, row.code, `Code mismatch at ${row.codeCell}`);
-    assert.equal(item.name, row.name ?? row.displayName, `Name mismatch for ${row.code}`);
-    assert.equal(item.price, Math.ceil(row.posValue / 5) * 5, `POS price mismatch at ${row.posCell} for ${row.code}`);
-    assert.equal(item.weight, row.weightGrams ? `${row.weightGrams} GM` : null, `Weight mismatch for ${row.code}`);
-    assert.deepEqual(item.contents, row.ingredients.map(ingredient => ingredient.unit === 'packaging'
+    const override = corrections.overrides[row.productId] ?? {};
+    assert.equal(item.name, override.name ?? row.name ?? row.displayName, `Name mismatch for ${row.code}`);
+    assert.equal(item.price, row.posValue, `POS price mismatch at ${row.posCell} for ${row.code}`);
+    assert.equal(item.weight, override.weight ?? (row.weightGrams ? `${row.weightGrams} GM` : null), `Weight mismatch for ${row.code}`);
+    assert.deepEqual(item.contents, override.contents ?? row.ingredients.map(ingredient => ingredient.unit === 'packaging'
       ? ingredient.name : `${ingredient.name} — ${ingredient.amount} ${ingredient.unit}`), `Contents mismatch for ${row.code}`);
+    if (override.image) assert.equal(item.image, override.image, `Correction photo mismatch for ${row.code}`);
     // Check retained photo variants against their source price as well.
     for (const variant of items.filter(candidate => candidate.code === row.code)) {
       if (row.code !== 'KHP 0025') assert.equal(variant.price, item.price, `Variant price mismatch for ${row.code}`);
@@ -33,7 +36,7 @@ export function verifyCatalogue(items) {
     assert.ok(items.some(item => item.code === formatted), `Missing catalogue code ${formatted}`);
   }
   for (const item of items) {
-    assert.ok(Number.isFinite(item.price) && item.price > 0 && item.price % 5 === 0, `Invalid rounded price for ${item.id}`);
+    assert.ok(Number.isFinite(item.price) && item.price > 0 && Math.abs(item.price * 100 - Math.round(item.price * 100)) < 1e-6, `Invalid amount for ${item.id}`);
     assert.ok(!Object.hasOwn(item, 'deliveryPrice'), `Unexpected delivery price field on ${item.id}`);
     assert.ok(!['dry-fruit-mix', 'mixed-mithai-box'].includes(item.id), `Unavailable product restored: ${item.id}`);
     assert.ok((item.images ?? [item.image]).includes(item.image), `Main photo missing from gallery: ${item.id}`);

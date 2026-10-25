@@ -409,7 +409,7 @@ function FeaturedSection({ onView }: { onView: (item: CatalogueItem) => void }) 
           {featuredSelections.map((item, index) => (
             <button key={item.id} type="button" className={`featured-card featured-card-${index + 1} group`} onClick={() => onView(item)}>
               <span className="relative block aspect-[4/3] overflow-hidden bg-[#e9ddc7]">
-                <Image src={item.image} alt={`${item.name} hamper`} fill sizes="(max-width: 768px) 100vw, 25vw" className={`${item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} transition duration-500 group-hover:scale-[1.035]`} />
+                <Image src={item.image} alt={`${item.name} hamper`} style={item.id === "vasant-bagh" ? { objectFit: "contain" } : undefined} fill sizes="(max-width: 768px) 100vw, 25vw" className={`${item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} transition duration-500 group-hover:scale-[1.035]`} />
               </span>
               <span className="featured-copy"><small>{kindLabel(item)}</small><strong>{item.name}</strong><span>{priceLabel(item)}</span></span>
             </button>
@@ -443,8 +443,8 @@ function ProductGallery({ item, onView, detail = false }: { item: CatalogueItem;
       setTouchStart(null);
     }}>
       {onView ? <button type="button" className="absolute inset-0" onClick={onView} aria-label={`View ${item.name} details`}>
-        <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
-      </button> : <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
+        <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" style={item.id === "vasant-bagh" ? { objectFit: "contain" } : undefined} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
+      </button> : <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" style={item.id === "vasant-bagh" ? { objectFit: "contain" } : undefined} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
       {loadedSource !== source && <span role="status" className="pointer-events-none absolute inset-0 grid place-items-center text-sm font-semibold text-[#6f514b]">Loading photo…</span>}
       {!detail && <span className="catalogue-tag pointer-events-none">{kindLabel(item)}</span>}
       {images.length > 1 && <>
