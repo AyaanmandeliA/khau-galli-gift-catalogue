@@ -1,4 +1,4 @@
-// Read-only final-workbook reconciliation snapshot; never imported by the storefront.
+// Final workbook reconciliation and explicit user-confirmed retention snapshot; never imported by storefront.
 export default {
   "sourceFile": "Hamper Pos Price & Delivery Price 2026  UP Date 27oct -26 Latest Sheet.xlsx",
   "sourceSha256": "ca85e446e30ffed7b79eb9ad945dce6c299e80953807d2e35c5bc777079820d3",
@@ -6,7 +6,7 @@ export default {
   "effectiveDate": "2026-10-27",
   "pricePolicy": "Exact last explicitly labelled POS price/final; never delivery or cost subtotal.",
   "entryCount": 41,
-  "expectedCatalogueCount": 71,
+  "expectedCatalogueCount": 81,
   "omittedCodes": [
     "KHP 0009",
     "KHP 0010",
@@ -17,7 +17,7 @@ export default {
     "KHP 0042",
     "KHP 0043"
   ],
-  "omissionPolicy": "Final supplier list supersedes earlier hamper selection; omitted codes withdrawn.",
+  "omissionPolicy": "User explicitly confirmed retaining all eight omitted codes and their named variants with their last confirmed details on 2026-10-27.",
   "retainedVariants": [
     {
       "productId": "vintage-peacock",
@@ -2565,5 +2565,231 @@ export default {
         ]
       }
     }
-  ]
+  ],
+  "retainedLegacyItems": [
+    {
+      "id": "khp-0042",
+      "name": "Diwali Darbaar",
+      "code": "KHP 0042",
+      "price": 188,
+      "weight": "1050 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Fancy Sweet — 250 g"
+      ],
+      "image": "/products/gallery/khp-0042-01-enhanced.jpg",
+      "images": [
+        "/products/gallery/khp-0042-01-enhanced.jpg",
+        "/products/gallery/khp-0042-02-enhanced.jpg",
+        "/products/gallery/khp-0042-03-enhanced.jpg",
+        "/products/gallery/khp-0042-04-enhanced.jpg",
+        "/products/gallery/khp-0042-05-enhanced.jpg",
+        "/products/gallery/khp-0042-06-enhanced.jpg",
+        "/products/gallery/khp-0042-07-enhanced.jpg",
+        "/products/gallery/khp-0042-08-enhanced.jpg",
+        "/products/gallery/khp-0042-09-enhanced.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null
+    },
+    {
+      "id": "khp-0043",
+      "name": "Chatpati Khushiyan",
+      "code": "KHP 0043",
+      "price": 101,
+      "weight": "500 GM",
+      "contents": [
+        "Cashew — 100 g",
+        "Almond — 100 g",
+        "Salted Pista — 100 g",
+        "Raisin — 100 g",
+        "Chana Dal — 100 g"
+      ],
+      "image": "/products/gallery/khp-0043-01-enhanced.jpg",
+      "images": [
+        "/products/gallery/khp-0043-01-enhanced.jpg",
+        "/products/gallery/khp-0043-02-enhanced.jpg",
+        "/products/gallery/khp-0043-03-enhanced.jpg",
+        "/products/gallery/khp-0043-04-enhanced.jpg",
+        "/products/gallery/khp-0043-05-enhanced.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null
+    },
+    {
+      "id": "mor-jodi-box",
+      "name": "Mor Jodi Box",
+      "code": "KHP 0030",
+      "price": 150,
+      "weight": "600 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Fancy Sweet — 200 g"
+      ],
+      "image": "/products/gallery/mor-jodi-box-02.jpg",
+      "images": [
+        "/products/gallery/mor-jodi-box-02.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 5
+    },
+    {
+      "id": "tree-of-treats-hamper",
+      "name": "Tree of Treats Hamper",
+      "code": "KHP 0010",
+      "price": 137,
+      "weight": "900 GM",
+      "contents": [
+        "Cashew — 150 g",
+        "Almond — 150 g",
+        "Salted Pista — 150 g",
+        "Raisin — 150 g",
+        "Kaju Apple — 100 g",
+        "Kaju Lemon — 100 g",
+        "Dry Fruit Cassata — 100 g"
+      ],
+      "image": "/products/gallery/tree-of-treats-hamper-02.jpg",
+      "images": [
+        "/products/gallery/tree-of-treats-hamper-02.jpg",
+        "/products/gallery/tree-of-treats-hamper-03.jpg",
+        "/products/gallery/tree-of-treats-hamper-04.jpg",
+        "/products/gallery/tree-of-treats-hamper-05.jpg",
+        "/products/gallery/tree-of-treats-hamper-06.jpg",
+        "/products/gallery/tree-of-treats-hamper-07.jpg",
+        "/products/gallery/tree-of-treats-hamper-08.jpg",
+        "/products/gallery/tree-of-treats-hamper-09.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 8
+    },
+    {
+      "id": "the-royal-potli",
+      "name": "The Royal Potli",
+      "code": "KHP 0017",
+      "price": 90,
+      "weight": "800 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Diya Satrangi Tlight — 1 pc"
+      ],
+      "image": "/products/the-royal-potli.webp",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 18
+    },
+    {
+      "id": "phoenix-lift",
+      "name": "Phoenix Lift",
+      "code": "KHP 0042",
+      "price": 188,
+      "weight": "1050 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Fancy Sweet — 250 g"
+      ],
+      "image": "/products/phoenix-lift.webp",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 31,
+      "catalogueNote": "Images for illustration"
+    },
+    {
+      "id": "royal-briefcase",
+      "name": "Royal Briefcase",
+      "code": "KHP 0043",
+      "price": 101,
+      "weight": "500 GM",
+      "contents": [
+        "Cashew — 100 g",
+        "Almond — 100 g",
+        "Salted Pista — 100 g",
+        "Raisin — 100 g",
+        "Chana Dal — 100 g"
+      ],
+      "image": "/products/royal-briefcase.webp",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 32,
+      "catalogueNote": "Images for illustration"
+    },
+    {
+      "id": "khp-0009",
+      "name": "The Goldan Glow Box",
+      "code": "KHP 0009",
+      "price": 87,
+      "weight": "900 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Masala Chana Dal — 200 g",
+        "1 Pc Latus Diya — 1 pc",
+        "Mouth Freshener — 100 g"
+      ],
+      "image": "/products/gallery/khp-0009-01-sheet3.jpg",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null,
+      "images": [
+        "/products/gallery/khp-0009-01-sheet3.jpg"
+      ]
+    },
+    {
+      "id": "khp-0015",
+      "name": "Riwaayat",
+      "code": "KHP 0015",
+      "price": 90,
+      "weight": "800 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Diya Satrangi Tlight — 1 pc"
+      ],
+      "image": "/products/gallery/khp-0015-01-sheet3.jpg",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null,
+      "images": [
+        "/products/gallery/khp-0015-01-sheet3.jpg"
+      ]
+    },
+    {
+      "id": "khp-0016",
+      "name": "Rangrez Hamper",
+      "code": "KHP 0016",
+      "price": 65,
+      "weight": "400 GM",
+      "contents": [
+        "Cashew — 100 g",
+        "Almond — 100 g",
+        "Salted Pista — 100 g",
+        "Raisin — 100 g",
+        "Pichwai Shubh Labh — 1 pc"
+      ],
+      "image": "/products/gallery/khp-0016-01-sheet3.jpg",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null,
+      "images": [
+        "/products/gallery/khp-0016-01-sheet3.jpg"
+      ]
+    }
+  ],
+  "retainedLegacySource": "Published version 27; last confirmed data from 25 October 2026."
 };

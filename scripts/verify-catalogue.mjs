@@ -38,8 +38,9 @@ export function verifyCatalogue(items) {
   }
   const sourceCodes = new Set(source.entries.map(row => row.code));
   for (const code of sourceCodes) assert.ok(items.some(item => item.code === code), `Missing final-sheet code ${code}`);
-  for (const code of source.omittedCodes) assert.ok(!items.some(item => item.code === code), `Withdrawn code restored: ${code}`);
-  const hamperIds = new Set([...source.entries.map(row => row.productId), ...source.retainedVariants.map(row => row.productId), 'kesari-diya-nut-hamper']);
+  for (const legacy of source.retainedLegacyItems) assert.deepEqual(items.find(item => item.id === legacy.id), legacy, `Last-confirmed omitted-sheet item changed: ${legacy.id}`);
+  for (const code of source.omittedCodes) assert.ok(items.some(item => item.code === code), `Retained code missing: ${code}`);
+  const hamperIds = new Set([...source.entries.map(row => row.productId), ...source.retainedVariants.map(row => row.productId), ...source.retainedLegacyItems.map(item => item.id), 'kesari-diya-nut-hamper']);
   for (const item of items.filter(item => item.kind === 'hamper')) assert.ok(hamperIds.has(item.id), `Unreconciled hamper: ${item.id}`);
   for (const item of items) {
     assert.ok(Number.isFinite(item.price) && item.price > 0 && Math.abs(item.price * 100 - Math.round(item.price * 100)) < 1e-6, `Invalid amount for ${item.id}`);

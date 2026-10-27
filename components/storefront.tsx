@@ -361,8 +361,8 @@ function Hero({ onBasketOpen }: { onBasketOpen: () => void }) {
           </div>
           <div className="hero-frame hero-frame-phoenix">
             <Image
-              src="/products/gallery/khp-0037-01-enhanced.jpg"
-              alt="Jashn-e-Diwali hamper from the Diwali 2026 catalogue"
+              src="/products/phoenix-lift.webp"
+              alt="Phoenix Lift hamper from the Diwali 2026 catalogue"
               fill
               priority
               sizes="(max-width: 1024px) 46vw, 22vw"
