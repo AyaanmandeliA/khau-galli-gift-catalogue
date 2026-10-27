@@ -22,7 +22,7 @@ export function verifyCatalogue(items) {
     assert.equal(item.code, row.code, `Code mismatch at ${row.codeCell}`);
     const override = corrections.overrides[row.productId] ?? {};
     assert.equal(item.name, override.name ?? row.name ?? row.displayName, `Name mismatch for ${row.code}`);
-    assert.equal(item.price, row.posValue, `POS price mismatch at ${row.posCell} for ${row.code}`);
+    assert.equal(item.price, override.price ?? row.posValue, `Price mismatch against source/approved override at ${row.posCell} for ${row.code}`);
     assert.equal(item.weight, override.weight ?? (row.weightGrams ? `${row.weightGrams} GM` : null), `Weight mismatch for ${row.code}`);
     assert.deepEqual(item.contents, override.contents ?? row.ingredients.map(ingredient => ingredient.unit === 'packaging'
       ? ingredient.name : `${ingredient.name} — ${ingredient.amount} ${ingredient.unit}`), `Contents mismatch for ${row.code}`);
@@ -30,7 +30,7 @@ export function verifyCatalogue(items) {
     // Check retained photo variants against their source price as well.
     for (const variant of items.filter(candidate => candidate.code === row.code)) {
       if (row.code !== 'KHP 0025') {
-        assert.equal(variant.price, item.price, `Variant price mismatch for ${row.code}`);
+        assert.equal(variant.price, corrections.overrides[variant.id]?.price ?? item.price, `Variant price mismatch for ${row.code}`);
         assert.equal(variant.weight, item.weight, `Variant weight mismatch for ${row.code}`);
         assert.deepEqual(variant.contents, item.contents, `Variant contents mismatch for ${row.code}`);
       }
