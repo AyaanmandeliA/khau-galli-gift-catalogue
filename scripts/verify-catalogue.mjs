@@ -20,6 +20,10 @@ export function verifyCatalogue(items) {
     const item = items.find(item => item.id === row.productId);
     assert.ok(item, `Missing workbook entry ${row.code}: ${row.displayName}`);
     assert.equal(item.code, row.code, `Code mismatch at ${row.codeCell}`);
+    if (corrections.frozenProducts?.[row.productId]) {
+      assert.deepEqual(item, corrections.frozenProducts[row.productId], `Protected Blue product changed: ${row.productId}`);
+      continue;
+    }
     const override = corrections.overrides[row.productId] ?? {};
     assert.equal(item.name, override.name ?? row.name ?? row.displayName, `Name mismatch for ${row.code}`);
     assert.equal(item.price, override.price ?? row.posValue, `Price mismatch against source/approved override at ${row.posCell} for ${row.code}`);
@@ -29,6 +33,10 @@ export function verifyCatalogue(items) {
     if (override.image) assert.equal(item.image, override.image, `Correction photo mismatch for ${row.code}`);
     // Check retained photo variants against their source price as well.
     for (const variant of items.filter(candidate => candidate.code === row.code)) {
+      if (corrections.frozenProducts?.[variant.id]) {
+        assert.deepEqual(variant, corrections.frozenProducts[variant.id], `Protected Blue product changed: ${variant.id}`);
+        continue;
+      }
       if (row.code !== 'KHP 0025') {
         assert.equal(variant.price, corrections.overrides[variant.id]?.price ?? item.price, `Variant price mismatch for ${row.code}`);
         assert.equal(variant.weight, item.weight, `Variant weight mismatch for ${row.code}`);
@@ -36,6 +44,7 @@ export function verifyCatalogue(items) {
       }
     }
   }
+  for (const [id, frozen] of Object.entries(corrections.frozenProducts ?? {})) assert.deepEqual(items.find(item => item.id === id), frozen, `Protected product missing or changed: ${id}`);
   const sourceCodes = new Set(source.entries.map(row => row.code));
   for (const code of sourceCodes) assert.ok(items.some(item => item.code === code), `Missing final-sheet code ${code}`);
   for (const legacy of source.retainedLegacyItems) assert.deepEqual(items.find(item => item.id === legacy.id), legacy, `Last-confirmed omitted-sheet item changed: ${legacy.id}`);

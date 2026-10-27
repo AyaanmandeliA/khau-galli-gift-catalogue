@@ -1,15 +1,14 @@
-// Final workbook reconciliation and explicit user-confirmed retention snapshot; never imported by storefront.
+// Read-only final-workbook reconciliation snapshot; never imported by the storefront.
 export default {
-  "sourceFile": "Hamper Pos Price & Delivery Price 2026  UP Date 27oct -26 Latest Sheet.xlsx",
-  "sourceSha256": "ca85e446e30ffed7b79eb9ad945dce6c299e80953807d2e35c5bc777079820d3",
+  "sourceFile": "Hamper Pos Price & Delivery Price 2026  UP Date 27oct -26 Latest Sheet (1).xlsx",
+  "sourceSha256": "c49b0be95a0b735f000adf5a78cfd57fdf0462810f115de6026b26ed621ca2fa",
   "sheet": "Sheet1",
-  "effectiveDate": "2026-10-27",
+  "effectiveDate": "2026-10-28",
   "pricePolicy": "Exact last explicitly labelled POS price/final; never delivery or cost subtotal.",
-  "entryCount": 41,
+  "entryCount": 42,
   "expectedCatalogueCount": 81,
   "omittedCodes": [
     "KHP 0009",
-    "KHP 0010",
     "KHP 0015",
     "KHP 0016",
     "KHP 0017",
@@ -17,7 +16,203 @@ export default {
     "KHP 0042",
     "KHP 0043"
   ],
-  "omissionPolicy": "User explicitly confirmed retaining all eight omitted codes and their named variants with their last confirmed details on 2026-10-27.",
+  "omissionPolicy": "Retain omitted codes at their last-confirmed details per explicit user instruction on 27 October, unchanged on 28 October.",
+  "retainedLegacyItems": [
+    {
+      "id": "khp-0042",
+      "name": "Diwali Darbaar",
+      "code": "KHP 0042",
+      "price": 188,
+      "weight": "1050 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Fancy Sweet — 250 g"
+      ],
+      "image": "/products/gallery/khp-0042-01-enhanced.jpg",
+      "images": [
+        "/products/gallery/khp-0042-01-enhanced.jpg",
+        "/products/gallery/khp-0042-02-enhanced.jpg",
+        "/products/gallery/khp-0042-03-enhanced.jpg",
+        "/products/gallery/khp-0042-04-enhanced.jpg",
+        "/products/gallery/khp-0042-05-enhanced.jpg",
+        "/products/gallery/khp-0042-06-enhanced.jpg",
+        "/products/gallery/khp-0042-07-enhanced.jpg",
+        "/products/gallery/khp-0042-08-enhanced.jpg",
+        "/products/gallery/khp-0042-09-enhanced.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null
+    },
+    {
+      "id": "khp-0043",
+      "name": "Chatpati Khushiyan",
+      "code": "KHP 0043",
+      "price": 101,
+      "weight": "500 GM",
+      "contents": [
+        "Cashew — 100 g",
+        "Almond — 100 g",
+        "Salted Pista — 100 g",
+        "Raisin — 100 g",
+        "Chana Dal — 100 g"
+      ],
+      "image": "/products/gallery/khp-0043-01-enhanced.jpg",
+      "images": [
+        "/products/gallery/khp-0043-01-enhanced.jpg",
+        "/products/gallery/khp-0043-02-enhanced.jpg",
+        "/products/gallery/khp-0043-03-enhanced.jpg",
+        "/products/gallery/khp-0043-04-enhanced.jpg",
+        "/products/gallery/khp-0043-05-enhanced.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null
+    },
+    {
+      "id": "mor-jodi-box",
+      "name": "Mor Jodi Box",
+      "code": "KHP 0030",
+      "price": 150,
+      "weight": "600 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Fancy Sweet — 200 g"
+      ],
+      "image": "/products/gallery/mor-jodi-box-02.jpg",
+      "images": [
+        "/products/gallery/mor-jodi-box-02.jpg"
+      ],
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 5
+    },
+    {
+      "id": "the-royal-potli",
+      "name": "The Royal Potli",
+      "code": "KHP 0017",
+      "price": 90,
+      "weight": "800 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Diya Satrangi Tlight — 1 pc"
+      ],
+      "image": "/products/the-royal-potli.webp",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 18
+    },
+    {
+      "id": "phoenix-lift",
+      "name": "Phoenix Lift",
+      "code": "KHP 0042",
+      "price": 188,
+      "weight": "1050 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Fancy Sweet — 250 g"
+      ],
+      "image": "/products/phoenix-lift.webp",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 31,
+      "catalogueNote": "Images for illustration"
+    },
+    {
+      "id": "royal-briefcase",
+      "name": "Royal Briefcase",
+      "code": "KHP 0043",
+      "price": 101,
+      "weight": "500 GM",
+      "contents": [
+        "Cashew — 100 g",
+        "Almond — 100 g",
+        "Salted Pista — 100 g",
+        "Raisin — 100 g",
+        "Chana Dal — 100 g"
+      ],
+      "image": "/products/royal-briefcase.webp",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": 32,
+      "catalogueNote": "Images for illustration"
+    },
+    {
+      "id": "khp-0009",
+      "name": "The Goldan Glow Box",
+      "code": "KHP 0009",
+      "price": 87,
+      "weight": "900 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Masala Chana Dal — 200 g",
+        "1 Pc Latus Diya — 1 pc",
+        "Mouth Freshener — 100 g"
+      ],
+      "image": "/products/gallery/khp-0009-01-sheet3.jpg",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null,
+      "images": [
+        "/products/gallery/khp-0009-01-sheet3.jpg"
+      ]
+    },
+    {
+      "id": "khp-0015",
+      "name": "Riwaayat",
+      "code": "KHP 0015",
+      "price": 90,
+      "weight": "800 GM",
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Diya Satrangi Tlight — 1 pc"
+      ],
+      "image": "/products/gallery/khp-0015-01-sheet3.jpg",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null,
+      "images": [
+        "/products/gallery/khp-0015-01-sheet3.jpg"
+      ]
+    },
+    {
+      "id": "khp-0016",
+      "name": "Rangrez Hamper",
+      "code": "KHP 0016",
+      "price": 65,
+      "weight": "400 GM",
+      "contents": [
+        "Cashew — 100 g",
+        "Almond — 100 g",
+        "Salted Pista — 100 g",
+        "Raisin — 100 g",
+        "Pichwai Shubh Labh — 1 pc"
+      ],
+      "image": "/products/gallery/khp-0016-01-sheet3.jpg",
+      "kind": "hamper",
+      "category": "gift-hampers",
+      "cataloguePage": null,
+      "images": [
+        "/products/gallery/khp-0016-01-sheet3.jpg"
+      ]
+    }
+  ],
+  "retainedLegacySource": "Published version 30; last confirmed data retained on 28 October 2026.",
   "retainedVariants": [
     {
       "productId": "vintage-peacock",
@@ -41,26 +236,37 @@ export default {
       "chosen": "Ingredient-derived food weight; packaging excluded."
     },
     {
+      "code": "KHP 0010",
+      "type": "conflicting-labelled-amounts",
+      "posCell": "M250",
+      "posValue": 250,
+      "finalPriceCell": "J255",
+      "finalPrice": 180,
+      "deliveryCell": "M249",
+      "deliveryValue": 160,
+      "chosen": "Dedicated POS Price field per existing policy; conflicting other labelled values flagged for user."
+    },
+    {
       "code": "KHP 0047",
       "type": "multiple-pos-final",
       "candidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I516",
-          "cell": "J516",
+          "labelCell": "I537",
+          "cell": "J537",
           "value": 137
         },
         {
           "label": "Pos Final",
-          "labelCell": "I517",
-          "cell": "J517",
+          "labelCell": "I538",
+          "cell": "J538",
           "value": 140
         }
       ],
       "chosen": {
         "label": "Pos Final",
-        "labelCell": "I517",
-        "cell": "J517",
+        "labelCell": "I538",
+        "cell": "J538",
         "value": 140
       },
       "reason": "Last explicitly labelled Pos Final row, after the cost/subtotal row."
@@ -71,21 +277,21 @@ export default {
       "candidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I527",
-          "cell": "J527",
+          "labelCell": "I548",
+          "cell": "J548",
           "value": 119
         },
         {
           "label": "Pos Final",
-          "labelCell": "I528",
-          "cell": "J528",
+          "labelCell": "I549",
+          "cell": "J549",
           "value": 120
         }
       ],
       "chosen": {
         "label": "Pos Final",
-        "labelCell": "I528",
-        "cell": "J528",
+        "labelCell": "I549",
+        "cell": "J549",
         "value": 120
       },
       "reason": "Last explicitly labelled Pos Final row, after the cost/subtotal row."
@@ -1278,7 +1484,7 @@ export default {
       "productId": "shubh-trio",
       "nameCell": "L226",
       "codeCell": "L227",
-      "blockRange": "G226:N239",
+      "blockRange": "G226:N241",
       "posCell": "M233",
       "posValue": 90,
       "posCandidates": [
@@ -1325,20 +1531,106 @@ export default {
       }
     },
     {
+      "code": "KHP 0010",
+      "name": "Tree of Treats Hamper",
+      "displayName": "Tree of Treats Hamper",
+      "productId": "tree-of-treats-hamper",
+      "nameCell": "L242",
+      "codeCell": "L243",
+      "blockRange": "G242:N260",
+      "posCell": "M250",
+      "posValue": 250,
+      "posCandidates": [
+        {
+          "label": "Pos Price",
+          "labelCell": "K250",
+          "cell": "M250",
+          "value": 250
+        }
+      ],
+      "ingredients": [
+        {
+          "name": "Cashew",
+          "quantity": 0.15,
+          "cells": "G245:H245",
+          "unit": "g",
+          "amount": 150
+        },
+        {
+          "name": "Almond",
+          "quantity": 0.15,
+          "cells": "G246:H246",
+          "unit": "g",
+          "amount": 150
+        },
+        {
+          "name": "Salted Pista",
+          "quantity": 0.15,
+          "cells": "G247:H247",
+          "unit": "g",
+          "amount": 150
+        },
+        {
+          "name": "Raisin",
+          "quantity": 0.15,
+          "cells": "G248:H248",
+          "unit": "g",
+          "amount": 150
+        },
+        {
+          "name": "Kaju Apple",
+          "quantity": 0.1,
+          "cells": "G249:H249",
+          "unit": "g",
+          "amount": 100
+        },
+        {
+          "name": "Kaju Lemon",
+          "quantity": 0.1,
+          "cells": "G250:H250",
+          "unit": "g",
+          "amount": 100
+        },
+        {
+          "name": "Dry Fruit Cassata",
+          "quantity": 0.1,
+          "cells": "G251:H251",
+          "unit": "g",
+          "amount": 100
+        }
+      ],
+      "weightGrams": 900,
+      "sourcePhotos": [],
+      "retainedPhotoSource": {
+        "catalogueVersion": 30,
+        "image": "/products/gallery/tree-of-treats-hamper-02.jpg",
+        "images": [
+          "/products/gallery/tree-of-treats-hamper-02.jpg",
+          "/products/gallery/tree-of-treats-hamper-03.jpg",
+          "/products/gallery/tree-of-treats-hamper-04.jpg",
+          "/products/gallery/tree-of-treats-hamper-05.jpg",
+          "/products/gallery/tree-of-treats-hamper-06.jpg",
+          "/products/gallery/tree-of-treats-hamper-07.jpg",
+          "/products/gallery/tree-of-treats-hamper-08.jpg",
+          "/products/gallery/tree-of-treats-hamper-09.jpg"
+        ]
+      }
+    },
+    {
       "code": "KHP 0025",
       "name": "Jharokha Box",
       "displayName": "Jharokha Box",
       "productId": "heritage-nut-box",
-      "nameCell": "L240",
-      "codeCell": "L241",
-      "blockRange": "G240:N253",
-      "posCell": "J250",
+      "nameCell": "L261",
+      "codeCell": "L262",
+      "blockRange": "G261:N274",
+      "posCell": "J271",
       "posValue": 100,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I250",
-          "cell": "J250",
+          "labelCell": "I271",
+          "cell": "J271",
           "value": 100
         }
       ],
@@ -1346,14 +1638,14 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G240:H240",
+          "cells": "G261:H261",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G241:H241",
+          "cells": "G262:H262",
           "unit": "g",
           "amount": 200
         }
@@ -1375,16 +1667,16 @@ export default {
       "name": "Gokul Box",
       "displayName": "Gokul Box",
       "productId": "royal-dry-fruit-box",
-      "nameCell": "L254",
-      "codeCell": "L255",
-      "blockRange": "G254:N267",
-      "posCell": "J264",
+      "nameCell": "L275",
+      "codeCell": "L276",
+      "blockRange": "G275:N288",
+      "posCell": "J285",
       "posValue": 120,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I264",
-          "cell": "J264",
+          "labelCell": "I285",
+          "cell": "J285",
           "value": 120
         }
       ],
@@ -1392,28 +1684,28 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G254:H254",
+          "cells": "G275:H275",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G255:H255",
+          "cells": "G276:H276",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.15,
-          "cells": "G256:H256",
+          "cells": "G277:H277",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Raisin",
           "quantity": 0.2,
-          "cells": "G257:H257",
+          "cells": "G278:H278",
           "unit": "g",
           "amount": 200
         }
@@ -1435,16 +1727,16 @@ export default {
       "name": "The Palace Hamper",
       "displayName": "The Palace Hamper",
       "productId": "raj-mahal-darwaza",
-      "nameCell": "L268",
-      "codeCell": "L269",
-      "blockRange": "G268:N282",
-      "posCell": "J278",
+      "nameCell": "L289",
+      "codeCell": "L290",
+      "blockRange": "G289:N303",
+      "posCell": "J299",
       "posValue": 150,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I278",
-          "cell": "J278",
+          "labelCell": "I299",
+          "cell": "J299",
           "value": 150
         }
       ],
@@ -1452,21 +1744,21 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.15,
-          "cells": "G268:H268",
+          "cells": "G289:H289",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Almond",
           "quantity": 0.15,
-          "cells": "G269:H269",
+          "cells": "G290:H290",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.3,
-          "cells": "G271:H271",
+          "cells": "G292:H292",
           "unit": "g",
           "amount": 300
         }
@@ -1488,45 +1780,45 @@ export default {
       "name": "The Botanical Hamper",
       "displayName": "The Botanical Hamper",
       "productId": "vasant-bagh",
-      "nameCell": "L283",
-      "codeCell": "L284",
-      "blockRange": "G283:N298",
-      "posCell": "J293",
-      "posValue": 180,
+      "nameCell": "L304",
+      "codeCell": "L305",
+      "blockRange": "G304:N319",
+      "posCell": "J314",
+      "posValue": 200,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I293",
-          "cell": "J293",
-          "value": 180
+          "labelCell": "I314",
+          "cell": "J314",
+          "value": 200
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G283:H283",
+          "cells": "G304:H304",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G284:H284",
+          "cells": "G305:H305",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.15,
-          "cells": "G285:H285",
+          "cells": "G306:H306",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.3,
-          "cells": "G287:H287",
+          "cells": "G308:H308",
           "unit": "g",
           "amount": 300
         }
@@ -1552,24 +1844,24 @@ export default {
       "name": "The Tall Ganesha Hamper",
       "displayName": "The Tall Ganesha Hamper",
       "productId": "divya-darshan-box",
-      "nameCell": "L299",
-      "codeCell": "L300",
-      "blockRange": "G299:N312",
-      "posCell": "J309",
-      "posValue": 145,
+      "nameCell": "L320",
+      "codeCell": "L321",
+      "blockRange": "G320:N333",
+      "posCell": "J330",
+      "posValue": 150,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I309",
-          "cell": "J309",
-          "value": 145
+          "labelCell": "I330",
+          "cell": "J330",
+          "value": 150
         }
       ],
       "ingredients": [
         {
           "name": "Fancy Sweet",
           "quantity": ".400 Gm",
-          "cells": "G300:H300",
+          "cells": "G321:H321",
           "unit": "g",
           "amount": 400
         }
@@ -1591,16 +1883,16 @@ export default {
       "name": "Royal Ganesha",
       "displayName": "Royal Ganesha",
       "productId": "royal-ganesha",
-      "nameCell": "L313",
-      "codeCell": "L314",
-      "blockRange": "G313:N329",
-      "posCell": "J323",
+      "nameCell": "L334",
+      "codeCell": "L335",
+      "blockRange": "G334:N350",
+      "posCell": "J344",
       "posValue": 210,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I323",
-          "cell": "J323",
+          "labelCell": "I344",
+          "cell": "J344",
           "value": 210
         }
       ],
@@ -1608,7 +1900,7 @@ export default {
         {
           "name": "Fancy Sweet",
           "quantity": ".800 Gm",
-          "cells": "G314:H314",
+          "cells": "G335:H335",
           "unit": "g",
           "amount": 800
         }
@@ -1630,16 +1922,16 @@ export default {
       "name": "Elegant Gift Hamper",
       "displayName": "Elegant Gift Hamper",
       "productId": "duo-treat",
-      "nameCell": "L330",
-      "codeCell": "L331",
-      "blockRange": "G330:N343",
-      "posCell": "J338",
+      "nameCell": "L351",
+      "codeCell": "L352",
+      "blockRange": "G351:N364",
+      "posCell": "J359",
       "posValue": 60,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I338",
-          "cell": "J338",
+          "labelCell": "I359",
+          "cell": "J359",
           "value": 60
         }
       ],
@@ -1647,14 +1939,14 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G330:H330",
+          "cells": "G351:H351",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G331:H331",
+          "cells": "G352:H352",
           "unit": "g",
           "amount": 200
         }
@@ -1676,16 +1968,16 @@ export default {
       "name": "Golden Harvest Gift Box",
       "displayName": "Golden Harvest Gift Box",
       "productId": "shahi-mefhil",
-      "nameCell": "L344",
-      "codeCell": "L345",
-      "blockRange": "G344:N357",
-      "posCell": "J352",
+      "nameCell": "L365",
+      "codeCell": "L366",
+      "blockRange": "G365:N378",
+      "posCell": "J373",
       "posValue": 80,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I352",
-          "cell": "J352",
+          "labelCell": "I373",
+          "cell": "J373",
           "value": 80
         }
       ],
@@ -1693,21 +1985,21 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G344:H344",
+          "cells": "G365:H365",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G345:H345",
+          "cells": "G366:H366",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.2,
-          "cells": "G346:H346",
+          "cells": "G367:H367",
           "unit": "g",
           "amount": 200
         }
@@ -1729,16 +2021,16 @@ export default {
       "name": "Royal Nut Collection",
       "displayName": "Royal Nut Collection",
       "productId": "royal-nut-collection",
-      "nameCell": "L358",
-      "codeCell": "L359",
-      "blockRange": "G358:N370",
-      "posCell": "J366",
+      "nameCell": "L379",
+      "codeCell": "L380",
+      "blockRange": "G379:N391",
+      "posCell": "J387",
       "posValue": 115,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I366",
-          "cell": "J366",
+          "labelCell": "I387",
+          "cell": "J387",
           "value": 115
         }
       ],
@@ -1746,21 +2038,21 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G358:H358",
+          "cells": "G379:H379",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G359:H359",
+          "cells": "G380:H380",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.2,
-          "cells": "G360:H360",
+          "cells": "G381:H381",
           "unit": "g",
           "amount": 200
         }
@@ -1782,52 +2074,52 @@ export default {
       "name": "Blue Royale Gift Hamper Box",
       "displayName": "Blue Royale Gift Hamper Box",
       "productId": "royal-bloom",
-      "nameCell": "L371",
-      "codeCell": "L372",
-      "blockRange": "G371:N384",
-      "posCell": "J381",
-      "posValue": 140,
+      "nameCell": "L392",
+      "codeCell": "L393",
+      "blockRange": "G392:N405",
+      "posCell": "J402",
+      "posValue": 180,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I381",
-          "cell": "J381",
-          "value": 140
+          "labelCell": "I402",
+          "cell": "J402",
+          "value": 180
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.13,
-          "cells": "G371:H371",
+          "cells": "G392:H392",
           "unit": "g",
           "amount": 130
         },
         {
           "name": "Almond",
           "quantity": 0.13,
-          "cells": "G372:H372",
+          "cells": "G393:H393",
           "unit": "g",
           "amount": 130
         },
         {
           "name": "Salted Pista",
           "quantity": 0.1,
-          "cells": "G373:H373",
+          "cells": "G394:H394",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Raisin",
           "quantity": 0.13,
-          "cells": "G374:H374",
+          "cells": "G395:H395",
           "unit": "g",
           "amount": 130
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.15,
-          "cells": "G375:H375",
+          "cells": "G396:H396",
           "unit": "g",
           "amount": 150
         }
@@ -1849,38 +2141,38 @@ export default {
       "name": "Rajwadi Delight Box",
       "displayName": "Rajwadi Delight Box",
       "productId": "royal-heritage-deluxe-box",
-      "nameCell": "L385",
-      "codeCell": "L386",
-      "blockRange": "G385:N400",
-      "posCell": "J395",
-      "posValue": 125,
+      "nameCell": "L406",
+      "codeCell": "L407",
+      "blockRange": "G406:N421",
+      "posCell": "J416",
+      "posValue": 150,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I395",
-          "cell": "J395",
-          "value": 125
+          "labelCell": "I416",
+          "cell": "J416",
+          "value": 150
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.1,
-          "cells": "G385:H385",
+          "cells": "G406:H406",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Almond",
           "quantity": 0.1,
-          "cells": "G386:H386",
+          "cells": "G407:H407",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.15,
-          "cells": "G389:H389",
+          "cells": "G410:H410",
           "unit": "g",
           "amount": 150
         }
@@ -1899,19 +2191,19 @@ export default {
     },
     {
       "code": "KHP 0037",
-      "name": null,
-      "displayName": "Jashn-e-Diwali",
+      "name": "Jashn-E-Diwali",
+      "displayName": "Jashn-E-Diwali",
       "productId": "khp-0037",
-      "nameCell": "M401",
-      "codeCell": "M402",
-      "blockRange": "G401:N414",
-      "posCell": "J410",
+      "nameCell": "M422",
+      "codeCell": "M423",
+      "blockRange": "G422:N435",
+      "posCell": "J431",
       "posValue": 185,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I410",
-          "cell": "J410",
+          "labelCell": "I431",
+          "cell": "J431",
           "value": 185
         }
       ],
@@ -1919,42 +2211,42 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G401:H401",
+          "cells": "G422:H422",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G402:H402",
+          "cells": "G423:H423",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.2,
-          "cells": "G403:H403",
+          "cells": "G424:H424",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Raisin",
           "quantity": 0.2,
-          "cells": "G404:H404",
+          "cells": "G425:H425",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Methi Mathri",
           "quantity": 0.15,
-          "cells": "G405:H405",
+          "cells": "G426:H426",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Chana Dal",
           "quantity": 0.15,
-          "cells": "G406:H406",
+          "cells": "G427:H427",
           "unit": "g",
           "amount": 150
         }
@@ -1977,55 +2269,55 @@ export default {
     },
     {
       "code": "KHP 0038",
-      "name": null,
-      "displayName": "Mithaas Ka Tohfa",
+      "name": "Mithaas Ka Tofha",
+      "displayName": "Mithaas Ka Tofha",
       "productId": "khp-0038",
-      "nameCell": "M415",
-      "codeCell": "M416",
-      "blockRange": "G415:N426",
-      "posCell": "J423",
-      "posValue": 125,
+      "nameCell": "M436",
+      "codeCell": "M437",
+      "blockRange": "G436:N447",
+      "posCell": "J444",
+      "posValue": 140,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I423",
-          "cell": "J423",
-          "value": 125
+          "labelCell": "I444",
+          "cell": "J444",
+          "value": 140
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G415:H415",
+          "cells": "G436:H436",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G416:H416",
+          "cells": "G437:H437",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.2,
-          "cells": "G417:H417",
+          "cells": "G438:H438",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Raisin",
           "quantity": 0.2,
-          "cells": "G418:H418",
+          "cells": "G439:H439",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.2,
-          "cells": "G419:H419",
+          "cells": "G440:H440",
           "unit": "g",
           "amount": 200
         }
@@ -2044,48 +2336,48 @@ export default {
     },
     {
       "code": "KHP 0039",
-      "name": null,
+      "name": "Shahi Nazrana",
       "displayName": "Shahi Nazrana",
       "productId": "khp-0039",
-      "nameCell": "M427",
-      "codeCell": "M428",
-      "blockRange": "G427:N439",
-      "posCell": "J434",
-      "posValue": 155,
+      "nameCell": "M448",
+      "codeCell": "M449",
+      "blockRange": "G448:N460",
+      "posCell": "J455",
+      "posValue": 190,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I434",
-          "cell": "J434",
-          "value": 155
+          "labelCell": "I455",
+          "cell": "J455",
+          "value": 190
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G427:H427",
+          "cells": "G448:H448",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G428:H428",
+          "cells": "G449:H449",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.15,
-          "cells": "G429:H429",
+          "cells": "G450:H450",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.30000000000000004,
-          "cells": "G430:H430",
+          "cells": "G451:H451",
           "unit": "g",
           "amount": 300
         }
@@ -2108,48 +2400,48 @@ export default {
     },
     {
       "code": "KHP 0040",
-      "name": null,
+      "name": "Sampann Dry Fruit Hamper",
       "displayName": "Sampann Dry Fruit Hamper",
       "productId": "khp-0040",
-      "nameCell": "M440",
-      "codeCell": "M441",
-      "blockRange": "G440:N453",
-      "posCell": "J447",
-      "posValue": 115,
+      "nameCell": "M461",
+      "codeCell": "M462",
+      "blockRange": "G461:N474",
+      "posCell": "J468",
+      "posValue": 130,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I447",
-          "cell": "J447",
-          "value": 115
+          "labelCell": "I468",
+          "cell": "J468",
+          "value": 130
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G440:H440",
+          "cells": "G461:H461",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G441:H441",
+          "cells": "G462:H462",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.15,
-          "cells": "G442:H442",
+          "cells": "G463:H463",
           "unit": "g",
           "amount": 150
         },
         {
           "name": "Raisin",
           "quantity": 0.2,
-          "cells": "G443:H443",
+          "cells": "G464:H464",
           "unit": "g",
           "amount": 200
         }
@@ -2172,48 +2464,48 @@ export default {
     },
     {
       "code": "KHP 0041",
-      "name": null,
-      "displayName": "Anmol Khushiyan",
+      "name": "Anmol khushiyan",
+      "displayName": "Anmol khushiyan",
       "productId": "khp-0041",
-      "nameCell": "M454",
-      "codeCell": "M455",
-      "blockRange": "G454:N468",
-      "posCell": "J461",
-      "posValue": 115,
+      "nameCell": "M475",
+      "codeCell": "M476",
+      "blockRange": "G475:N489",
+      "posCell": "J482",
+      "posValue": 130,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I461",
-          "cell": "J461",
-          "value": 115
+          "labelCell": "I482",
+          "cell": "J482",
+          "value": 130
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.1,
-          "cells": "G454:H454",
+          "cells": "G475:H475",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Almond",
           "quantity": 0.1,
-          "cells": "G455:H455",
+          "cells": "G476:H476",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Salted Pista",
           "quantity": 0.1,
-          "cells": "G456:H456",
+          "cells": "G477:H477",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Raisin",
           "quantity": 0.1,
-          "cells": "G457:H457",
+          "cells": "G478:H478",
           "unit": "g",
           "amount": 100
         }
@@ -2236,41 +2528,41 @@ export default {
     },
     {
       "code": "KHP 0044",
-      "name": null,
+      "name": "Shahi Trio",
       "displayName": "Shahi Trio",
       "productId": "khp-0044",
-      "nameCell": "M469",
-      "codeCell": "M470",
-      "blockRange": "G469:N482",
-      "posCell": "J475",
-      "posValue": 90,
+      "nameCell": "M490",
+      "codeCell": "M491",
+      "blockRange": "G490:N503",
+      "posCell": "J496",
+      "posValue": 115,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I475",
-          "cell": "J475",
-          "value": 90
+          "labelCell": "I496",
+          "cell": "J496",
+          "value": 115
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G469:H469",
+          "cells": "G490:H490",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G470:H470",
+          "cells": "G491:H491",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.15,
-          "cells": "G471:H471",
+          "cells": "G492:H492",
           "unit": "g",
           "amount": 150
         }
@@ -2293,41 +2585,41 @@ export default {
     },
     {
       "code": "KHP 0045",
-      "name": null,
+      "name": "Rang Mahal Gift Box",
       "displayName": "Rang Mahal Gift Box",
       "productId": "khp-0045",
-      "nameCell": "M483",
-      "codeCell": "M484",
-      "blockRange": "G483:N496",
-      "posCell": "J489",
-      "posValue": 130,
+      "nameCell": "M504",
+      "codeCell": "M505",
+      "blockRange": "G504:N517",
+      "posCell": "J510",
+      "posValue": 150,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I489",
-          "cell": "J489",
-          "value": 130
+          "labelCell": "I510",
+          "cell": "J510",
+          "value": 150
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.2,
-          "cells": "G483:H483",
+          "cells": "G504:H504",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G484:H484",
+          "cells": "G505:H505",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.2,
-          "cells": "G485:H485",
+          "cells": "G506:H506",
           "unit": "g",
           "amount": 200
         }
@@ -2350,55 +2642,55 @@ export default {
     },
     {
       "code": "KHP 0046",
-      "name": null,
+      "name": "Orange Blossom",
       "displayName": "Orange Blossom",
       "productId": "orange-blossom",
-      "nameCell": "M497",
-      "codeCell": "M498",
-      "blockRange": "G497:N509",
-      "posCell": "J503",
-      "posValue": 140,
+      "nameCell": "M518",
+      "codeCell": "M519",
+      "blockRange": "G518:N530",
+      "posCell": "J526",
+      "posValue": 180,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I503",
-          "cell": "J503",
-          "value": 140
+          "labelCell": "I526",
+          "cell": "J526",
+          "value": 180
         }
       ],
       "ingredients": [
         {
           "name": "Cashew",
           "quantity": 0.1,
-          "cells": "G497:H497",
+          "cells": "G518:H518",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Almond",
           "quantity": 0.1,
-          "cells": "G498:H498",
+          "cells": "G519:H519",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Salted Pista",
           "quantity": 0.1,
-          "cells": "G499:H499",
+          "cells": "G520:H520",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Raisin",
           "quantity": 0.1,
-          "cells": "G500:H500",
+          "cells": "G521:H521",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.3,
-          "cells": "G501:H501",
+          "cells": "G522:H522",
           "unit": "g",
           "amount": 300
         }
@@ -2421,25 +2713,25 @@ export default {
     },
     {
       "code": "KHP 0047",
-      "name": null,
+      "name": "Hexa Delight Hamper",
       "displayName": "Hexa Delight Hamper",
       "productId": "khp-0047",
-      "nameCell": "M510",
-      "codeCell": "M511",
-      "blockRange": "G510:N520",
-      "posCell": "J517",
+      "nameCell": "M531",
+      "codeCell": "M532",
+      "blockRange": "G531:N541",
+      "posCell": "J538",
       "posValue": 140,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I516",
-          "cell": "J516",
+          "labelCell": "I537",
+          "cell": "J537",
           "value": 137
         },
         {
           "label": "Pos Final",
-          "labelCell": "I517",
-          "cell": "J517",
+          "labelCell": "I538",
+          "cell": "J538",
           "value": 140
         }
       ],
@@ -2447,35 +2739,35 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.1,
-          "cells": "G510:H510",
+          "cells": "G531:H531",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Almond",
           "quantity": 0.2,
-          "cells": "G511:H511",
+          "cells": "G532:H532",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Salted Pista",
           "quantity": 0.1,
-          "cells": "G512:H512",
+          "cells": "G533:H533",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Raisin",
           "quantity": 0.2,
-          "cells": "G513:H513",
+          "cells": "G534:H534",
           "unit": "g",
           "amount": 200
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.2,
-          "cells": "G514:H514",
+          "cells": "G535:H535",
           "unit": "g",
           "amount": 200
         }
@@ -2494,25 +2786,25 @@ export default {
     },
     {
       "code": "KHP 0048",
-      "name": null,
+      "name": "Mithaas Square Gift Box",
       "displayName": "Mithaas Square Gift Box",
       "productId": "khp-0048",
-      "nameCell": "M521",
-      "codeCell": "M522",
-      "blockRange": "G521:N530",
-      "posCell": "J528",
+      "nameCell": "M542",
+      "codeCell": "M543",
+      "blockRange": "G542:N551",
+      "posCell": "J549",
       "posValue": 120,
       "posCandidates": [
         {
           "label": "Pos Final",
-          "labelCell": "I527",
-          "cell": "J527",
+          "labelCell": "I548",
+          "cell": "J548",
           "value": 119
         },
         {
           "label": "Pos Final",
-          "labelCell": "I528",
-          "cell": "J528",
+          "labelCell": "I549",
+          "cell": "J549",
           "value": 120
         }
       ],
@@ -2520,35 +2812,35 @@ export default {
         {
           "name": "Cashew",
           "quantity": 0.1,
-          "cells": "G521:H521",
+          "cells": "G542:H542",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Almond",
           "quantity": 0.1,
-          "cells": "G522:H522",
+          "cells": "G543:H543",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Salted Pista",
           "quantity": 0.1,
-          "cells": "G523:H523",
+          "cells": "G544:H544",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Raisin",
           "quantity": 0.1,
-          "cells": "G524:H524",
+          "cells": "G545:H545",
           "unit": "g",
           "amount": 100
         },
         {
           "name": "Fancy Sweet",
           "quantity": 0.2,
-          "cells": "G525:H525",
+          "cells": "G546:H546",
           "unit": "g",
           "amount": 200
         }
@@ -2565,231 +2857,5 @@ export default {
         ]
       }
     }
-  ],
-  "retainedLegacyItems": [
-    {
-      "id": "khp-0042",
-      "name": "Diwali Darbaar",
-      "code": "KHP 0042",
-      "price": 188,
-      "weight": "1050 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Salted Pista — 200 g",
-        "Raisin — 200 g",
-        "Fancy Sweet — 250 g"
-      ],
-      "image": "/products/gallery/khp-0042-01-enhanced.jpg",
-      "images": [
-        "/products/gallery/khp-0042-01-enhanced.jpg",
-        "/products/gallery/khp-0042-02-enhanced.jpg",
-        "/products/gallery/khp-0042-03-enhanced.jpg",
-        "/products/gallery/khp-0042-04-enhanced.jpg",
-        "/products/gallery/khp-0042-05-enhanced.jpg",
-        "/products/gallery/khp-0042-06-enhanced.jpg",
-        "/products/gallery/khp-0042-07-enhanced.jpg",
-        "/products/gallery/khp-0042-08-enhanced.jpg",
-        "/products/gallery/khp-0042-09-enhanced.jpg"
-      ],
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": null
-    },
-    {
-      "id": "khp-0043",
-      "name": "Chatpati Khushiyan",
-      "code": "KHP 0043",
-      "price": 101,
-      "weight": "500 GM",
-      "contents": [
-        "Cashew — 100 g",
-        "Almond — 100 g",
-        "Salted Pista — 100 g",
-        "Raisin — 100 g",
-        "Chana Dal — 100 g"
-      ],
-      "image": "/products/gallery/khp-0043-01-enhanced.jpg",
-      "images": [
-        "/products/gallery/khp-0043-01-enhanced.jpg",
-        "/products/gallery/khp-0043-02-enhanced.jpg",
-        "/products/gallery/khp-0043-03-enhanced.jpg",
-        "/products/gallery/khp-0043-04-enhanced.jpg",
-        "/products/gallery/khp-0043-05-enhanced.jpg"
-      ],
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": null
-    },
-    {
-      "id": "mor-jodi-box",
-      "name": "Mor Jodi Box",
-      "code": "KHP 0030",
-      "price": 150,
-      "weight": "600 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Fancy Sweet — 200 g"
-      ],
-      "image": "/products/gallery/mor-jodi-box-02.jpg",
-      "images": [
-        "/products/gallery/mor-jodi-box-02.jpg"
-      ],
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": 5
-    },
-    {
-      "id": "tree-of-treats-hamper",
-      "name": "Tree of Treats Hamper",
-      "code": "KHP 0010",
-      "price": 137,
-      "weight": "900 GM",
-      "contents": [
-        "Cashew — 150 g",
-        "Almond — 150 g",
-        "Salted Pista — 150 g",
-        "Raisin — 150 g",
-        "Kaju Apple — 100 g",
-        "Kaju Lemon — 100 g",
-        "Dry Fruit Cassata — 100 g"
-      ],
-      "image": "/products/gallery/tree-of-treats-hamper-02.jpg",
-      "images": [
-        "/products/gallery/tree-of-treats-hamper-02.jpg",
-        "/products/gallery/tree-of-treats-hamper-03.jpg",
-        "/products/gallery/tree-of-treats-hamper-04.jpg",
-        "/products/gallery/tree-of-treats-hamper-05.jpg",
-        "/products/gallery/tree-of-treats-hamper-06.jpg",
-        "/products/gallery/tree-of-treats-hamper-07.jpg",
-        "/products/gallery/tree-of-treats-hamper-08.jpg",
-        "/products/gallery/tree-of-treats-hamper-09.jpg"
-      ],
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": 8
-    },
-    {
-      "id": "the-royal-potli",
-      "name": "The Royal Potli",
-      "code": "KHP 0017",
-      "price": 90,
-      "weight": "800 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Salted Pista — 200 g",
-        "Raisin — 200 g",
-        "Diya Satrangi Tlight — 1 pc"
-      ],
-      "image": "/products/the-royal-potli.webp",
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": 18
-    },
-    {
-      "id": "phoenix-lift",
-      "name": "Phoenix Lift",
-      "code": "KHP 0042",
-      "price": 188,
-      "weight": "1050 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Salted Pista — 200 g",
-        "Raisin — 200 g",
-        "Fancy Sweet — 250 g"
-      ],
-      "image": "/products/phoenix-lift.webp",
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": 31,
-      "catalogueNote": "Images for illustration"
-    },
-    {
-      "id": "royal-briefcase",
-      "name": "Royal Briefcase",
-      "code": "KHP 0043",
-      "price": 101,
-      "weight": "500 GM",
-      "contents": [
-        "Cashew — 100 g",
-        "Almond — 100 g",
-        "Salted Pista — 100 g",
-        "Raisin — 100 g",
-        "Chana Dal — 100 g"
-      ],
-      "image": "/products/royal-briefcase.webp",
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": 32,
-      "catalogueNote": "Images for illustration"
-    },
-    {
-      "id": "khp-0009",
-      "name": "The Goldan Glow Box",
-      "code": "KHP 0009",
-      "price": 87,
-      "weight": "900 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Salted Pista — 200 g",
-        "Masala Chana Dal — 200 g",
-        "1 Pc Latus Diya — 1 pc",
-        "Mouth Freshener — 100 g"
-      ],
-      "image": "/products/gallery/khp-0009-01-sheet3.jpg",
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": null,
-      "images": [
-        "/products/gallery/khp-0009-01-sheet3.jpg"
-      ]
-    },
-    {
-      "id": "khp-0015",
-      "name": "Riwaayat",
-      "code": "KHP 0015",
-      "price": 90,
-      "weight": "800 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Salted Pista — 200 g",
-        "Raisin — 200 g",
-        "Diya Satrangi Tlight — 1 pc"
-      ],
-      "image": "/products/gallery/khp-0015-01-sheet3.jpg",
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": null,
-      "images": [
-        "/products/gallery/khp-0015-01-sheet3.jpg"
-      ]
-    },
-    {
-      "id": "khp-0016",
-      "name": "Rangrez Hamper",
-      "code": "KHP 0016",
-      "price": 65,
-      "weight": "400 GM",
-      "contents": [
-        "Cashew — 100 g",
-        "Almond — 100 g",
-        "Salted Pista — 100 g",
-        "Raisin — 100 g",
-        "Pichwai Shubh Labh — 1 pc"
-      ],
-      "image": "/products/gallery/khp-0016-01-sheet3.jpg",
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": null,
-      "images": [
-        "/products/gallery/khp-0016-01-sheet3.jpg"
-      ]
-    }
-  ],
-  "retainedLegacySource": "Published version 27; last confirmed data from 25 October 2026."
+  ]
 };
