@@ -1,4 +1,4 @@
-// Revised supplier sheet with user-protected Blue products; raw supplier values remain separate.
+// Revised supplier sheet and explicit user price decisions; Blue products remain protected.
 export default {
   "sourceFile": "Hamper Pos Price & Delivery Price 2026  UP Date 27oct -26 Latest Sheet (1).xlsx",
   "date": "2026-10-28",
@@ -12,6 +12,9 @@ export default {
       "price": 140
     },
     "royal-bloom": {
+      "price": 180
+    },
+    "tree-of-treats-hamper": {
       "price": 180
     }
   },
@@ -67,5 +70,13 @@ export default {
       "catalogueNote": "Images for illustration"
     }
   },
-  "frozenProductsAuthority": "28 October explicit user instruction: do not change either Blue product; confirmed prices remain AED 140 and AED 180."
+  "frozenProductsAuthority": "28 October explicit user instruction: do not change either Blue product; confirmed prices remain AED 140 and AED 180.",
+  "treeOfTreatsPriceResolution": {
+    "date": "2026-10-28",
+    "authority": "Explicit user answer: AED 180 — use Final Price.",
+    "code": "KHP 0010",
+    "sourceCell": "Sheet1!J255",
+    "price": 180,
+    "supersedes": "Sheet1!M250 POS 250; user explicitly resolves the customer price to 180."
+  }
 };
