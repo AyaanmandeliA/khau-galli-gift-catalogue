@@ -12,8 +12,9 @@ export function readCatalogue() {
     .map(line => JSON.parse(line.trim().replace(/,$/, '')));
 }
 export function verifyCatalogue(items) {
-  assert.equal(source.entries.length, 49, 'Workbook must retain all 49 source entries, including both KHP 0025 boxes');
-  assert.equal(new Set(source.entries.map(row => row.productId)).size, 49, 'Each workbook row requires its own product');
+  assert.equal(source.entries.length, source.entryCount, 'Every final-sheet source entry must be represented, including both KHP 0025 boxes');
+  assert.equal(items.length, source.expectedCatalogueCount, 'Catalogue count must match the reconciled final release');
+  assert.equal(new Set(source.entries.map(row => row.productId)).size, source.entryCount, 'Each workbook row requires its own product');
   assert.equal(new Set(items.map(item => item.id)).size, items.length, 'Product IDs must be unique');
   for (const row of source.entries) {
     const item = items.find(item => item.id === row.productId);
@@ -28,13 +29,18 @@ export function verifyCatalogue(items) {
     if (override.image) assert.equal(item.image, override.image, `Correction photo mismatch for ${row.code}`);
     // Check retained photo variants against their source price as well.
     for (const variant of items.filter(candidate => candidate.code === row.code)) {
-      if (row.code !== 'KHP 0025') assert.equal(variant.price, item.price, `Variant price mismatch for ${row.code}`);
+      if (row.code !== 'KHP 0025') {
+        assert.equal(variant.price, item.price, `Variant price mismatch for ${row.code}`);
+        assert.equal(variant.weight, item.weight, `Variant weight mismatch for ${row.code}`);
+        assert.deepEqual(variant.contents, item.contents, `Variant contents mismatch for ${row.code}`);
+      }
     }
   }
-  for (let code = 1; code <= 49; code++) {
-    const formatted = `KHP ${String(code).padStart(4, '0')}`;
-    assert.ok(items.some(item => item.code === formatted), `Missing catalogue code ${formatted}`);
-  }
+  const sourceCodes = new Set(source.entries.map(row => row.code));
+  for (const code of sourceCodes) assert.ok(items.some(item => item.code === code), `Missing final-sheet code ${code}`);
+  for (const code of source.omittedCodes) assert.ok(!items.some(item => item.code === code), `Withdrawn code restored: ${code}`);
+  const hamperIds = new Set([...source.entries.map(row => row.productId), ...source.retainedVariants.map(row => row.productId), 'kesari-diya-nut-hamper']);
+  for (const item of items.filter(item => item.kind === 'hamper')) assert.ok(hamperIds.has(item.id), `Unreconciled hamper: ${item.id}`);
   for (const item of items) {
     assert.ok(Number.isFinite(item.price) && item.price > 0 && Math.abs(item.price * 100 - Math.round(item.price * 100)) < 1e-6, `Invalid amount for ${item.id}`);
     assert.ok(!Object.hasOwn(item, 'deliveryPrice'), `Unexpected delivery price field on ${item.id}`);
@@ -43,7 +49,7 @@ export function verifyCatalogue(items) {
     for (const image of item.images ?? [item.image]) assert.ok(existsSync(resolve(root, `public${image}`)), `Missing image: ${image}`);
   }
   assert.equal(items.find(item => item.id === 'kesari-diya-nut-hamper')?.price, 40, 'Preserve user-confirmed KHP 0049 price');
-  return { sourceEntries: source.entries.length, codes: 49, products: items.length };
+  return { sourceEntries: source.entries.length, sourceCodes: sourceCodes.size, products: items.length };
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   console.log('Catalogue verification passed:', verifyCatalogue(readCatalogue()));
