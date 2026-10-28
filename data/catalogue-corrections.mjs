@@ -57,51 +57,51 @@ export default {
       ]
     },
     "ksb-0003": {
-      "image": "/products/gallery/ksb-0003-01-studio-20261028.jpg",
+      "image": "/products/gallery/ksb-0003-01-flat-20261028-v2.jpg",
       "images": [
-        "/products/gallery/ksb-0003-01-studio-20261028.jpg",
-        "/products/gallery/ksb-0003-02-studio-20261028.jpg",
-        "/products/gallery/ksb-0003-03-studio-20261028.jpg"
+        "/products/gallery/ksb-0003-01-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0003-02-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0003-03-flat-20261028-v2.jpg"
       ]
     },
     "ksb-0004": {
-      "image": "/products/gallery/ksb-0004-01-studio-20261028.jpg",
+      "image": "/products/gallery/ksb-0004-01-flat-20261028-v2.jpg",
       "images": [
-        "/products/gallery/ksb-0004-01-studio-20261028.jpg",
-        "/products/gallery/ksb-0004-02-studio-20261028.jpg",
-        "/products/gallery/ksb-0004-03-studio-20261028.jpg",
-        "/products/gallery/ksb-0004-04-studio-20261028.jpg",
-        "/products/gallery/ksb-0004-05-studio-20261028.jpg",
-        "/products/gallery/ksb-0004-06-studio-20261028.jpg",
-        "/products/gallery/ksb-0004-07-studio-20261028.jpg"
+        "/products/gallery/ksb-0004-01-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0004-02-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0004-03-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0004-04-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0004-05-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0004-06-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0004-07-flat-20261028-v2.jpg"
       ]
     },
     "ksb-0005": {
-      "image": "/products/gallery/ksb-0005-01-studio-20261028.jpg",
+      "image": "/products/gallery/ksb-0005-01-flat-20261028-v2.jpg",
       "images": [
-        "/products/gallery/ksb-0005-01-studio-20261028.jpg",
-        "/products/gallery/ksb-0005-02-studio-20261028.jpg",
-        "/products/gallery/ksb-0005-03-studio-20261028.jpg",
-        "/products/gallery/ksb-0005-04-studio-20261028.jpg"
+        "/products/gallery/ksb-0005-01-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0005-02-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0005-03-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0005-04-flat-20261028-v2.jpg"
       ]
     },
     "ksb-0006": {
-      "image": "/products/gallery/ksb-0006-01-studio-20261028.jpg",
+      "image": "/products/gallery/ksb-0006-01-flat-20261028-v2.jpg",
       "images": [
-        "/products/gallery/ksb-0006-01-studio-20261028.jpg",
-        "/products/gallery/ksb-0006-02-studio-20261028.jpg",
-        "/products/gallery/ksb-0006-03-studio-20261028.jpg",
-        "/products/gallery/ksb-0006-04-studio-20261028.jpg",
-        "/products/gallery/ksb-0006-05-studio-20261028.jpg",
-        "/products/gallery/ksb-0006-06-studio-20261028.jpg"
+        "/products/gallery/ksb-0006-01-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0006-02-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0006-03-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0006-04-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0006-05-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0006-06-flat-20261028-v2.jpg"
       ]
     },
     "ksb-0007": {
-      "image": "/products/gallery/ksb-0007-01-studio-20261028.jpg",
+      "image": "/products/gallery/ksb-0007-01-flat-20261028-v2.jpg",
       "images": [
-        "/products/gallery/ksb-0007-01-studio-20261028.jpg",
-        "/products/gallery/ksb-0007-02-studio-20261028.jpg",
-        "/products/gallery/ksb-0007-03-studio-20261028.jpg"
+        "/products/gallery/ksb-0007-01-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0007-02-flat-20261028-v2.jpg",
+        "/products/gallery/ksb-0007-03-flat-20261028-v2.jpg"
       ]
     },
     "ksb-0008": {
@@ -159,6 +159,62 @@ export default {
       "images": [
         "/products/gallery/khp-0045-01-studio-20261028.jpg",
         "/products/gallery/khp-0045-02-studio-20261028.jpg"
+      ]
+    },
+    "khp-0016": {
+      "image": "/products/gallery/khp-0016-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/khp-0016-01-studio-20261028-v2.jpg"
+      ]
+    },
+    "khp-0018": {
+      "image": "/products/gallery/khp-0018-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/khp-0018-01-studio-20261028-v2.jpg"
+      ]
+    },
+    "khp-0048": {
+      "image": "/products/gallery/khp-0048-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/khp-0048-01-studio-20261028-v2.jpg"
+      ]
+    },
+    "khp-0019": {
+      "image": "/products/gallery/khp-0019-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/khp-0019-01-studio-20261028-v2.jpg"
+      ]
+    },
+    "executive-hamper": {
+      "image": "/products/gallery/executive-hamper-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/executive-hamper-01-studio-20261028-v2.jpg",
+        "/products/gallery/executive-hamper-02-studio-20261028-v2.jpg",
+        "/products/gallery/executive-hamper-03-studio-20261028-v2.jpg"
+      ]
+    },
+    "khp-0024": {
+      "image": "/products/gallery/khp-0024-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/khp-0024-01-studio-20261028-v2.jpg"
+      ]
+    },
+    "khp-0015": {
+      "image": "/products/gallery/khp-0015-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/khp-0015-01-studio-20261028-v2.jpg"
+      ]
+    },
+    "phoolon-ki-chhaon": {
+      "image": "/products/gallery/phoolon-ki-chhaon-01-studio-20261028-v2.jpg",
+      "images": [
+        "/products/gallery/phoolon-ki-chhaon-01-studio-20261028-v2.jpg",
+        "/products/gallery/phoolon-ki-chhaon-02-studio-20261028-v2.jpg",
+        "/products/gallery/phoolon-ki-chhaon-03-studio-20261028-v2.jpg",
+        "/products/gallery/phoolon-ki-chhaon-04-studio-20261028-v2.jpg",
+        "/products/gallery/phoolon-ki-chhaon-05-studio-20261028-v2.jpg",
+        "/products/gallery/phoolon-ki-chhaon-06-studio-20261028-v2.jpg",
+        "/products/gallery/phoolon-ki-chhaon-07-studio-20261028-v2.jpg"
       ]
     }
   },
