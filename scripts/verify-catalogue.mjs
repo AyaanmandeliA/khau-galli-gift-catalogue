@@ -13,7 +13,7 @@ export function readCatalogue() {
 }
 export function verifyCatalogue(items) {
   assert.equal(source.entries.length, source.entryCount, 'Every final-sheet source entry must be represented, including both KHP 0025 boxes');
-  assert.equal(items.length, source.expectedCatalogueCount, 'Catalogue count must match the reconciled final release');
+  assert.equal(items.length, corrections.expectedCatalogueCount ?? source.expectedCatalogueCount, 'Catalogue count must match the reconciled final release');
   assert.equal(new Set(source.entries.map(row => row.productId)).size, source.entryCount, 'Each workbook row requires its own product');
   assert.equal(new Set(items.map(item => item.id)).size, items.length, 'Product IDs must be unique');
   for (const row of source.entries) {
@@ -45,9 +45,15 @@ export function verifyCatalogue(items) {
     }
   }
   for (const [id, frozen] of Object.entries(corrections.frozenProducts ?? {})) assert.deepEqual(items.find(item => item.id === id), frozen, `Protected product missing or changed: ${id}`);
+  for (const id of corrections.removedProductIds ?? []) assert.ok(!items.some(item => item.id === id), `Removed duplicate restored: ${id}`);
+  for (const [id, override] of Object.entries(corrections.overrides)) {
+    const item = items.find(item => item.id === id);
+    assert.ok(item, `Approved product missing: ${id}`);
+    for (const [field,value] of Object.entries(override)) assert.deepEqual(item[field],value, `Approved correction changed: ${id}.${field}`);
+  }
   const sourceCodes = new Set(source.entries.map(row => row.code));
   for (const code of sourceCodes) assert.ok(items.some(item => item.code === code), `Missing final-sheet code ${code}`);
-  for (const legacy of source.retainedLegacyItems) assert.deepEqual(items.find(item => item.id === legacy.id), legacy, `Last-confirmed omitted-sheet item changed: ${legacy.id}`);
+  for (const legacy of source.retainedLegacyItems.filter(item => !corrections.removedProductIds?.includes(item.id))) assert.deepEqual(items.find(item => item.id === legacy.id), {...legacy, ...corrections.overrides[legacy.id]}, `Last-confirmed omitted-sheet item changed: ${legacy.id}`);
   for (const code of source.omittedCodes) assert.ok(items.some(item => item.code === code), `Retained code missing: ${code}`);
   const hamperIds = new Set([...source.entries.map(row => row.productId), ...source.retainedVariants.map(row => row.productId), ...source.retainedLegacyItems.map(item => item.id), 'kesari-diya-nut-hamper']);
   for (const item of items.filter(item => item.kind === 'hamper')) assert.ok(hamperIds.has(item.id), `Unreconciled hamper: ${item.id}`);

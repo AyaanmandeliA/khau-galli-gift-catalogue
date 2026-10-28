@@ -341,8 +341,8 @@ function Hero({ onBasketOpen }: { onBasketOpen: () => void }) {
           </div>
           <div className="hero-frame hero-frame-blue">
             <Image
-              src="/products/blue-bloom.webp"
-              alt="Blue Bloom hamper from the Diwali 2026 catalogue"
+              src="/products/gallery/khp-0038-01-enhanced.jpg"
+              alt="Mithaas Ka Tofha hamper from the Diwali 2026 catalogue"
               fill
               priority
               sizes="(max-width: 1024px) 42vw, 22vw"
@@ -443,8 +443,8 @@ function ProductGallery({ item, onView, detail = false }: { item: CatalogueItem;
       setTouchStart(null);
     }}>
       {onView ? <button type="button" className="absolute inset-0" onClick={onView} aria-label={`View ${item.name} details`}>
-        <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" style={item.id === "vasant-bagh" ? { objectFit: "contain" } : undefined} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
-      </button> : <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" style={item.id === "vasant-bagh" ? { objectFit: "contain" } : undefined} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
+        <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: item.images || item.id === "vasant-bagh" ? "contain" : "cover" }} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />
+      </button> : <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" style={{ objectFit: item.images || item.id === "vasant-bagh" ? "contain" : "cover" }} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
       {loadedSource !== source && <span role="status" className="pointer-events-none absolute inset-0 grid place-items-center text-sm font-semibold text-[#6f514b]">Loading photo…</span>}
       {!detail && <span className="catalogue-tag pointer-events-none">{kindLabel(item)}</span>}
       {images.length > 1 && <>
@@ -581,7 +581,7 @@ function ProductDialog({
   return (
     <Dialog open={Boolean(item)} onOpenChange={(open) => !open && onClose()}>
       {item ? (
-        <DialogContent className="max-h-[94vh] max-w-[1080px] overflow-y-auto border-[#bfa66e]/30 bg-[#fffaf0] p-0 sm:rounded-[1.8rem]">
+        <DialogContent className="max-h-[94vh] max-w-[calc(100%-2rem)] sm:max-w-[1080px] overflow-y-auto border-[#bfa66e]/30 bg-[#fffaf0] p-0 sm:rounded-[1.8rem]">
           <div className="grid md:grid-cols-[1.08fr_.92fr]">
             <ProductGallery key={item.id} item={item} detail />
             <div className="flex flex-col p-6 sm:p-9 md:p-11">

@@ -1,21 +1,165 @@
-// Revised supplier sheet and explicit user price decisions; Blue products remain protected.
 export default {
   "sourceFile": "Hamper Pos Price & Delivery Price 2026  UP Date 27oct -26 Latest Sheet (1).xlsx",
   "date": "2026-10-28",
-  "publication": "Publish revised final sheet per user instruction, preserving both protected Blue products.",
+  "publication": "28 October screenshot feedback: six explicit price changes, duplicate removal and faithful photo improvements.",
   "pricePolicy": "Exact last explicitly labelled POS price/final; never delivery or cost subtotal.",
   "overrides": {
     "vasant-bagh": {
       "image": "/products/gallery/vasant-bagh-open-box-review-20261025.png"
-    },
-    "blue-bloom": {
-      "price": 140
     },
     "royal-bloom": {
       "price": 180
     },
     "tree-of-treats-hamper": {
       "price": 180
+    },
+    "royal-briefcase": {
+      "price": 150
+    },
+    "khp-0043": {
+      "price": 150
+    },
+    "phoenix-lift": {
+      "price": 220,
+      "contents": [
+        "Cashew — 200 g",
+        "Almond — 200 g",
+        "Salted Pista — 200 g",
+        "Raisin — 200 g",
+        "Fancy Sweet — 250 g",
+        "Diyas — 2 pcs"
+      ]
+    },
+    "raj-mahal-darwaza": {
+      "price": 200
+    },
+    "mor-jodi-box": {
+      "price": 220
+    },
+    "divya-darshan-box": {
+      "price": 220
+    },
+    "ksb-0001": {
+      "image": "/products/gallery/ksb-0001-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0001-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0001-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0001-03-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0002": {
+      "image": "/products/gallery/ksb-0002-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0002-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0002-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0002-03-studio-20261028.jpg",
+        "/products/gallery/ksb-0002-04-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0003": {
+      "image": "/products/gallery/ksb-0003-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0003-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0003-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0003-03-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0004": {
+      "image": "/products/gallery/ksb-0004-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0004-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0004-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0004-03-studio-20261028.jpg",
+        "/products/gallery/ksb-0004-04-studio-20261028.jpg",
+        "/products/gallery/ksb-0004-05-studio-20261028.jpg",
+        "/products/gallery/ksb-0004-06-studio-20261028.jpg",
+        "/products/gallery/ksb-0004-07-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0005": {
+      "image": "/products/gallery/ksb-0005-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0005-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0005-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0005-03-studio-20261028.jpg",
+        "/products/gallery/ksb-0005-04-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0006": {
+      "image": "/products/gallery/ksb-0006-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0006-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0006-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0006-03-studio-20261028.jpg",
+        "/products/gallery/ksb-0006-04-studio-20261028.jpg",
+        "/products/gallery/ksb-0006-05-studio-20261028.jpg",
+        "/products/gallery/ksb-0006-06-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0007": {
+      "image": "/products/gallery/ksb-0007-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0007-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0007-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0007-03-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0008": {
+      "image": "/products/gallery/ksb-0008-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0008-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0008-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0008-03-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0009": {
+      "image": "/products/gallery/ksb-0009-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0009-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0009-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0009-03-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0010": {
+      "image": "/products/gallery/ksb-0010-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0010-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0010-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0010-03-studio-20261028.jpg"
+      ]
+    },
+    "ksb-0011": {
+      "image": "/products/gallery/ksb-0011-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/ksb-0011-01-studio-20261028.jpg",
+        "/products/gallery/ksb-0011-02-studio-20261028.jpg",
+        "/products/gallery/ksb-0011-03-studio-20261028.jpg"
+      ]
+    },
+    "khp-0021": {
+      "image": "/products/gallery/khp-0021-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/khp-0021-01-studio-20261028.jpg"
+      ]
+    },
+    "khp-0023": {
+      "image": "/products/gallery/khp-0023-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/khp-0023-01-studio-20261028.jpg"
+      ]
+    },
+    "khp-0047": {
+      "image": "/products/gallery/khp-0047-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/khp-0047-01-studio-20261028.jpg"
+      ]
+    },
+    "khp-0045": {
+      "image": "/products/gallery/khp-0045-01-studio-20261028.jpg",
+      "images": [
+        "/products/gallery/khp-0045-01-studio-20261028.jpg",
+        "/products/gallery/khp-0045-02-studio-20261028.jpg"
+      ]
     }
   },
   "approvedPriceOverrides": {
@@ -44,33 +188,9 @@ export default {
       "kind": "hamper",
       "category": "gift-hampers",
       "cataloguePage": 6
-    },
-    "blue-bloom": {
-      "id": "blue-bloom",
-      "name": "Blue Bloom",
-      "code": "KHP 0038",
-      "price": 140,
-      "weight": "1000 GM",
-      "contents": [
-        "Cashew — 200 g",
-        "Almond — 200 g",
-        "Salted Pista — 200 g",
-        "Raisin — 200 g",
-        "Fancy Sweet — 200 g"
-      ],
-      "image": "/products/gallery/blue-bloom-02.jpg",
-      "images": [
-        "/products/gallery/blue-bloom-02.jpg",
-        "/products/gallery/blue-bloom-03.jpg",
-        "/products/gallery/blue-bloom-04.jpg"
-      ],
-      "kind": "hamper",
-      "category": "gift-hampers",
-      "cataloguePage": 33,
-      "catalogueNote": "Images for illustration"
     }
   },
-  "frozenProductsAuthority": "28 October explicit user instruction: do not change either Blue product; confirmed prices remain AED 140 and AED 180.",
+  "frozenProductsAuthority": "Blue Royale remains protected at AED 180. Later explicit screenshot feedback authorizes removing duplicate Blue Bloom, keeping Mithaas Ka Tofha.",
   "treeOfTreatsPriceResolution": {
     "date": "2026-10-28",
     "authority": "Explicit user answer: AED 180 — use Final Price.",
@@ -78,5 +198,26 @@ export default {
     "sourceCell": "Sheet1!J255",
     "price": 180,
     "supersedes": "Sheet1!M250 POS 250; user explicitly resolves the customer price to 180."
+  },
+  "removedProductIds": [
+    "khp-0042",
+    "blue-bloom"
+  ],
+  "expectedCatalogueCount": 79,
+  "screenshotFeedbackAuthority": {
+    "date": "2026-10-28",
+    "source": "Six user-adopted WhatsApp feedback screenshots in B16FEF8A-57DB-4B98-AC1D-ADC511A7303B",
+    "priceOverrides": {
+      "royal-briefcase": 150,
+      "khp-0043": 150,
+      "phoenix-lift": 220,
+      "raj-mahal-darwaza": 200,
+      "mor-jodi-box": 220,
+      "divya-darshan-box": 220
+    },
+    "removedDuplicates": {
+      "khp-0042": "Keep Phoenix Lift (KHP 0042), add two diyas.",
+      "blue-bloom": "Keep Mithaas Ka Tofha (KHP 0038)."
+    }
   }
 };
