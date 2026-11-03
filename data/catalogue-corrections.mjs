@@ -4,6 +4,10 @@ export default {
   "publication": "28 October screenshot feedback: six explicit price changes, duplicate removal and faithful photo improvements.",
   "pricePolicy": "Exact last explicitly labelled POS price/final; never delivery or cost subtotal.",
   "overrides": {
+    "vintage-peacock": {
+      "price": 180,
+      "soldOut": true
+    },
     "vasant-bagh": {
       "image": "/products/gallery/vasant-bagh-open-box-review-20261025.png"
     },

@@ -411,7 +411,7 @@ function FeaturedSection({ onView }: { onView: (item: CatalogueItem) => void }) 
               <span className="relative block aspect-[4/3] overflow-hidden bg-[#e9ddc7]">
                 <Image src={item.image} alt={`${item.name} hamper`} style={item.id === "vasant-bagh" ? { objectFit: "contain" } : undefined} fill sizes="(max-width: 768px) 100vw, 25vw" className={`${item.id === "vasant-bagh" ? "bg-[#fff7e6] object-contain" : "object-cover"} transition duration-500 group-hover:scale-[1.035]`} />
               </span>
-              <span className="featured-copy"><small>{kindLabel(item)}</small><strong>{item.name}</strong><span>{priceLabel(item)}</span></span>
+              <span className="featured-copy"><small>{kindLabel(item)}</small><strong>{item.name}</strong><span>{priceLabel(item)}{item.soldOut ? " · Sold out" : ""}</span></span>
             </button>
           ))}
         </div>
@@ -447,6 +447,7 @@ function ProductGallery({ item, onView, detail = false }: { item: CatalogueItem;
       </button> : <Image key={source} unoptimized onLoad={() => setLoadedSource(source)} src={source} alt={`${item.name}, photo ${active + 1} of ${images.length}`} fill sizes="(max-width: 768px) 100vw, 52vw" style={{ objectFit: item.images || item.id === "vasant-bagh" ? "contain" : "cover" }} className={item.images || item.id === "vasant-bagh" ? "object-contain" : "object-cover"} />}
       {loadedSource !== source && <span role="status" className="pointer-events-none absolute inset-0 grid place-items-center text-sm font-semibold text-[#6f514b]">Loading photo…</span>}
       {!detail && <span className="catalogue-tag pointer-events-none">{kindLabel(item)}</span>}
+      {item.soldOut && <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-[#641621] px-4 py-2 text-xs font-black uppercase tracking-wider text-white">Sold out</span>}
       {images.length > 1 && <>
         <button type="button" className="gallery-arrow gallery-prev" onClick={() => move(-1)} aria-label={`Previous photo of ${item.name}`}><ChevronLeft size={20} /></button>
         <button type="button" className="gallery-arrow gallery-next" onClick={() => move(1)} aria-label={`Next photo of ${item.name}`}><ChevronRight size={20} /></button>
@@ -485,7 +486,9 @@ function ProductCard({
         </p>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
           <button type="button" className="text-button" onClick={() => onView(item)}>View details</button>
-          {quantity ? (
+          {item.soldOut ? (
+            <button type="button" className="add-icon-button cursor-not-allowed opacity-60" disabled>Sold out</button>
+          ) : quantity ? (
             <QuantitySelector
               quantity={quantity}
               onChange={(nextQuantity) => onQuantityChange(item.id, nextQuantity)}
@@ -605,9 +608,9 @@ function ProductDialog({
                   <p className="leading-7 text-[#6f5b55]">{item.catalogueNote ? `${item.catalogueNote}. ` : ""}{item.price === null ? "Price, contents and any unlisted details are confirmed when you enquire." : "No weight or contents are listed for this catalogue add-on."}</p>
                 )}
               </div>
-              <div className="mt-7 flex items-center justify-between gap-4"><div><p className="text-sm font-black text-[#4d2b2c]">Quantity</p><p className="mt-1 text-xs text-[#88716a]">{item.price === null ? "Final value confirmed on quote" : `${formatAed(item.price * quantity)} subtotal`}</p></div><QuantitySelector quantity={quantity} onChange={setQuantity} label={`Quantity for ${item.name}`} /></div>
+              {!item.soldOut && <div className="mt-7 flex items-center justify-between gap-4"><div><p className="text-sm font-black text-[#4d2b2c]">Quantity</p><p className="mt-1 text-xs text-[#88716a]">{item.price === null ? "Final value confirmed on quote" : `${formatAed(item.price * quantity)} subtotal`}</p></div><QuantitySelector quantity={quantity} onChange={setQuantity} label={`Quantity for ${item.name}`} /></div>}
               <div className="mt-auto grid gap-3 pt-8">
-                <Button className="h-13 rounded-full bg-[#641621] text-base text-white hover:bg-[#7d2330]" onClick={() => onAdd(item, quantity)}><ShoppingBag aria-hidden="true" />Add to enquiry</Button>
+                <Button disabled={item.soldOut} className="h-13 rounded-full bg-[#641621] text-base text-white hover:bg-[#7d2330]" onClick={() => onAdd(item, quantity)}><ShoppingBag aria-hidden="true" />{item.soldOut ? "Sold out" : "Add to enquiry"}</Button>
                 <a className="outline-cta" href={whatsappUrl(buildProductMessage(item, quantity))} target="_blank" rel="noreferrer"><MessageCircle className="size-5" aria-hidden="true" />Ask about this item</a>
               </div>
             </div>
@@ -891,7 +894,7 @@ export default function Storefront() {
       const saved = localStorage.getItem(BASKET_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as Basket;
-        setBasket(Object.fromEntries(Object.entries(parsed).filter(([id, quantity]) => itemById.has(id) && Number(quantity) > 0)));
+        setBasket(Object.fromEntries(Object.entries(parsed).filter(([id, quantity]) => itemById.has(id) && !itemById.get(id)?.soldOut && Number(quantity) > 0)));
       }
     } catch {
       localStorage.removeItem(BASKET_STORAGE_KEY);
@@ -905,7 +908,7 @@ export default function Storefront() {
   }, [basket, hydrated]);
 
   const basketLines = useMemo(
-    () => catalogueItems.filter((item) => basket[item.id]).map((item) => ({ item, quantity: basket[item.id] })),
+    () => catalogueItems.filter((item) => !item.soldOut && basket[item.id]).map((item) => ({ item, quantity: basket[item.id] })),
     [basket],
   );
   const basketCount = basketLines.reduce((sum, line) => sum + line.quantity, 0);
@@ -934,6 +937,7 @@ export default function Storefront() {
   }, []);
 
   const addToBasket = useCallback((item: CatalogueItem, quantity: number) => {
+    if (item.soldOut) return;
     const safe = safeQuantity(quantity);
     setBasket((current) => ({ ...current, [item.id]: (current[item.id] ?? 0) + safe }));
     setSelectedItem(null);
@@ -954,6 +958,7 @@ export default function Storefront() {
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     const item = itemById.get(id);
+    if (!item || item.soldOut) return;
     if (quantity <= 0) {
       setBasket((current) => { const next = { ...current }; delete next[id]; return next; });
       setStatus(`${item?.name ?? "Item"} removed from your enquiry.`);
@@ -999,7 +1004,7 @@ export default function Storefront() {
         const selectedCategory = typeof value.category === "string" ? value.category : undefined;
         return catalogueItems
           .filter((item) => (!search || `${item.name} ${item.code ?? ""} ${item.contents.join(" ")}`.toLowerCase().includes(search)) && (!selectedCategory || item.category === selectedCategory))
-          .map(({ id, name, code, price, weight, contents, category: itemCategory }) => ({ id, name, code, price, weight, contents, category: itemCategory }));
+          .map(({ id, name, code, price, weight, contents, soldOut, category: itemCategory }) => ({ id, name, code, price, weight, contents, soldOut: Boolean(soldOut), category: itemCategory }));
       },
     });
     register({
@@ -1015,6 +1020,7 @@ export default function Storefront() {
           if (typeof candidate.id !== "string" || !Number.isInteger(candidate.quantity) || Number(candidate.quantity) < 1) throw new Error("Each item needs a valid id and positive integer quantity");
           const item = itemById.get(candidate.id);
           if (!item) throw new Error(`Unknown catalogue item id: ${candidate.id}`);
+          if (item.soldOut) throw new Error(`${item.name} is sold out`);
           return { item, quantity: Number(candidate.quantity) };
         });
         setBasket((current) => {
